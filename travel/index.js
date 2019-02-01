@@ -17,8 +17,6 @@ app.get("/", (request, response) => {
   response.json({ info: "Node.js, Express, and Postgres API" });
 });
 
-app.get("/login", db.getUsers);
-app.get("/users/:id", db.getUserById);
 app.post("/login", db.authorizeUser);
 app.post("/signup", db.addUser);
 app.put("/users/:id", db.updateUser);

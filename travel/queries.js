@@ -1,9 +1,9 @@
 const Pool = require("pg").Pool;
 const pool = new Pool({
-  user: "me",
-  host: "localhost",
-  database: "api",
-  password: "password",
+  user: "edohrrik",
+  host: "pellefant.db.elephantsql.com",
+  database: "edohrrik",
+  password: "2j8SiFKXECcvC5EnJpXpaUzo6fR1DqsN",
   port: 5432
 });
 
@@ -27,30 +27,6 @@ var verifyUser = (username, password, response) => {
           }
         });
       }
-    }
-  );
-};
-
-const getUsers = (request, response) => {
-  pool.query("SELECT * FROM user_travel ORDER BY id ASC", (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
-};
-
-const getUserById = (request, response) => {
-  const id = parseInt(request.params.id);
-
-  pool.query(
-    "SELECT * FROM user_travel WHERE id = $1",
-    [id],
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      response.status(200).json(results.rows);
     }
   );
 };
@@ -124,8 +100,6 @@ const deleteUser = (request, response) => {
 };
 
 module.exports = {
-  getUsers,
-  getUserById,
   authorizeUser,
   addUser,
   updateUser,
