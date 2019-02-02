@@ -5,3 +5,9 @@
 .App .navbar-brand {
   font-weight: bold;
 }
+
+.navbar {
+  height: 50px;
+  margin-left: -10em;
+  width: 130%;
+}

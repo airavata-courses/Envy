@@ -1,6 +1,6 @@
 @media all and (min-width: 480px) {
   .Signup {
-    padding: 60px 0;
+    padding: 50px 0;
   }
 
   .Signup form {
@@ -25,5 +25,13 @@
 
   .cardsignup:hover {
     box-shadow: 4px 8px 16px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .row-signup {
+    margin-top: em;
+  }
+
+  .row-signup-password {
+    padding-top: 3%;
   }
 }

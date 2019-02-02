@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import Image from "./image";
 import "./Signup.css";
 
@@ -50,7 +49,10 @@ export default class Signup extends Component {
         this.setState({ error: data.status.error });
         if (data.status.error === "false") {
           console.log("user has signed in");
-          this.props.history.push("/");
+          this.props.history.push({
+            pathname: "/",
+            authorize: { authorize: this.state.error }
+          });
         }
       })
       .catch(error => console.error("Error:", error));
@@ -61,42 +63,56 @@ export default class Signup extends Component {
     return (
       <div className="classGrid">
         <Image />
-        <div className="Signup cardsignup">
+        <div className="Signup cardsignup grey lighten-3">
           <form onSubmit={this.handleSubmit}>
-            <FormGroup controlId="email" bsSize="large">
-              <ControlLabel>Email</ControlLabel>
-              <FormControl
-                autoFocus
-                type="email"
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-            <FormGroup controlId="password" bsSize="large">
-              <ControlLabel>Password</ControlLabel>
-              <FormControl
-                value={this.state.password}
-                onChange={this.handleChange}
-                type="password"
-              />
-            </FormGroup>
-            <FormGroup controlId="confirmPassword" bsSize="large">
-              <ControlLabel>Confirm Password</ControlLabel>
-              <FormControl
-                value={this.state.confirmPassword}
-                onChange={this.handleChange}
-                type="password"
-              />
-            </FormGroup>
-            <Button
-              className="w3-btn w3-blue"
-              block
-              bsSize="large"
-              disabled={!this.validateForm()}
+            <div className="row-signup">
+              <div className="input-field col s6">
+                <input
+                  id="email"
+                  type="email"
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                />
+                <label className="deactive" htmlFor="email">
+                  Email
+                </label>
+              </div>
+            </div>
+            <div className="row-signup-password">
+              <div className="input-field col s6">
+                <input
+                  id="password"
+                  type="password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                />
+                <label className="deactive" htmlFor="password">
+                  Password
+                </label>
+              </div>
+            </div>
+            <div className="row-signup-password">
+              <div className="input-field col s6">
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  value={this.state.confirmPassword}
+                  onChange={this.handleChange}
+                />
+                <label className="deactive" htmlFor="confirmPassword">
+                  Confirm Password
+                </label>
+              </div>
+            </div>
+            <button
+              className="btn btn-login waves-effect waves-light"
               type="submit"
+              name="action"
+              disabled={!this.validateForm()}
+              block="true"
             >
               Signup
-            </Button>
+            </button>
           </form>
         </div>
       </div>

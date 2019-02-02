@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -18,15 +18,15 @@ class App extends Component {
     this.setState({ isAuthenticated: authenticated });
   };
 
+  handleLogout = event => {
+    this.userHasAuthenticated(false);
+  };
+
   render() {
-    const childProps = {
-      isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
-    };
     return (
       <div className="App container">
         <Navbar
-          className="navbar navbar-inverse"
+          className="navbar navbar-inverse "
           navbar-expand-lg="true"
           fluid
           collapseOnSelect
@@ -40,16 +40,22 @@ class App extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav pullRight>
-              <LinkContainer to="/signup">
-                <NavItem>Signup</NavItem>
-              </LinkContainer>
-              <LinkContainer to="/login">
-                <NavItem>Login</NavItem>
-              </LinkContainer>
+              {this.state.isAuthenticated ? (
+                <NavItem onClick={this.handleLogout}>Logout</NavItem>
+              ) : (
+                <Fragment>
+                  <LinkContainer to="/signup">
+                    <NavItem>Signup</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to="/login">
+                    <NavItem>Login</NavItem>
+                  </LinkContainer>
+                </Fragment>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Routes childProps={childProps} />
+        <Routes />
       </div>
     );
   }
