@@ -6,7 +6,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -20,14 +19,14 @@ public class LocationService {
     public static final String STATUS_INVALID_REQUEST = "INVALID_REQUEST"; 
  
 	
-	public static final String GOOGLE_MAPS_API_ENDPOINT = "http://maps.googleapis.com/maps/api/geocode/json?address={address}&sensor=false&key= AIzaSyBagWk-nugrXCoELtAZHg0CR0BcnlqWrU0"; 
+	public static final String GOOGLE_MAPS_API_ENDPOINT = "https://maps.googleapis.com/maps/api/geocode/json?address={address}&sensor=false&key= AIzaSyBagWk-nugrXCoELtAZHg0CR0BcnlqWrU0"; 
 	 
-    private RestTemplate restTemplate; 
-    
-    @Autowired 
-    public LocationService(RestTemplate restTemplate) { 
-        this.restTemplate = restTemplate; 
-    } 
+    //private RestTemplate restTemplate; 
+//    
+//    @Autowired 
+//    public LocationService(RestTemplate restTemplate) { 
+//        //this.restTemplate = restTemplate; 
+//    } 
  
     private String buildMessage(String status) { 
         if (status == STATUS_ZERO_RESULTS) 
@@ -44,7 +43,11 @@ public class LocationService {
     
     
     public double[] findLocation(String address) throws RestClientException, UnsupportedEncodingException { 
+    	RestTemplate restTemplate = new RestTemplate();
+    	
+    	System.out.println("In here!!");
         Map<?, ?> obj = restTemplate.getForObject(GOOGLE_MAPS_API_ENDPOINT, Map.class,encode(address, "UTF-8")); 
+        System.out.println(obj);
  
         // check the response status 
         String status = (String) obj.get("status"); 
@@ -64,6 +67,7 @@ public class LocationService {
                 (Double) location.get("lng") 
                 
         }; 
+   
     } 
 
 }

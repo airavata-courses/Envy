@@ -1,23 +1,32 @@
 package com.start.envy.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
 
 import com.start.envy.service.LocationService;
-@Controller
+
+@RestController
 public class StarterController {
 	@Autowired 
-    private static LocationService locationService;
-	public static void Main(String[] args) {
-	double[] location = null;
+    private  LocationService locationService;
 	
-    try { 
-        location = locationService.findLocation("Indiana"); 
-    } catch (Exception e) { 
-        e.printStackTrace(); 
-    } 
-    
-  System.out.println(location);
-
-	}	
+	@RequestMapping("/getRideRequests")
+    public void getCoordinates(@RequestParam(value="from", defaultValue="World") String from,@RequestParam(value="to", defaultValue="World") String to) {
+		try {
+			double[] location = locationService.findLocation("Indiana");
+		} catch (RestClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
+	
 }

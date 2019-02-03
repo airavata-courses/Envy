@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>envy</groupId>
 	<artifactId>Envy</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>Envy</name>
 	<description>eny</description>
 
