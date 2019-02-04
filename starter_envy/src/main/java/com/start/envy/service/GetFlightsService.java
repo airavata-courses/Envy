@@ -27,14 +27,26 @@ public String findFlights() throws JsonParseException, JsonMappingException, IOE
 		String currency = "USD";
 		String locale = "en-US";
 		String originPlace ="SFO-sky";
-		String destinationPlace="LHR-sky";
-		String inboundDate = "2019-01-20";
-		String outboundDate="2019-01-20";
-		String url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing/v1.0";
+		String destinationPlace="ORD-sky";
+		String inboundDate = "2019-02-10";
+		String outboundDate="2019-02-12";
+		String url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browseroutes/v1.0/US/USD/en-US/SFO-sky/ORD-sky/2019-02-05?inboundpartialdate=2019-01-01";
 		//String url = "https://cometari-airportsfinder-v1.p.rapidapi.com/api/airports/by-radius?X-RapidAPI-Key=84f658fc33msh8dc84ca11f27689p175a8fjsnf4214dbe7a20";
 		RestTemplate restTemplate = new RestTemplate();
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.set("X-RapidAPI-Key", "84f658fc33msh8dc84ca11f27689p175a8fjsnf4214dbe7a20");
+//	    
+//	    HttpResponse<JsonNode> response = Unirest.get("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browseroutes/v1.0/US/USD/en-US/SFO-sky/ORD-sky/2019-02-05?inboundpartialdate=2019-01-01")
+//	    		.header("X-RapidAPI-Key", "fe8e115cafmsh948e409de59748ap1de812jsn7c85d9df01ec")
+//	    		.asJson();
+	    
+//	    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(uri)
+//		        .queryParam("start_latitude", 37.7752315)
+//		        .queryParam("start_longitude", -122.418075)
+//		        .queryParam("end_latitude", 37.7752415)
+//		        .queryParam("end_longitude", -122.518075);
+//		 
+	    
 
 	    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 	    HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
