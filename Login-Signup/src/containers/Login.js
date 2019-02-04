@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./Login.css";
-import Image from "./image.jsx";
 
 export default class Login extends Component {
   constructor(props) {
@@ -39,6 +38,7 @@ export default class Login extends Component {
         this.setState({ error: data.status.error });
         if (data.status.error === "false") {
           console.log("user logged in");
+          this.props.userHasAuthenticated(true);
           this.props.history.push({
             pathname: "/",
             authorize: { authorize: this.state.error }
@@ -51,48 +51,45 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="classGrid">
-        <Image />
-        <div className="Login card grey lighten-3">
-          <form onSubmit={this.handleSubmit}>
-            <div className="row-login ">
-              <div className="input-field col s6">
-                <input
-                  id="email"
-                  type="text"
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                />
-                <label className="deactive" htmlFor="email">
-                  Email
-                </label>
-              </div>
+      <div className="Login card grey lighten-3">
+        <form onSubmit={this.handleSubmit}>
+          <div className="row-login ">
+            <div className="input-field col s6">
+              <input
+                id="email"
+                type="text"
+                value={this.state.email}
+                onChange={this.handleChange}
+              />
+              <label className="deactive" htmlFor="email">
+                Email
+              </label>
             </div>
-            <div className="row-login">
-              <div className="input-field col s6">
-                <input
-                  id="password"
-                  type="password"
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                />
-                <label className="deactive" htmlFor="password">
-                  password
-                </label>
-              </div>
+          </div>
+          <div className="row-login">
+            <div className="input-field col s6">
+              <input
+                id="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+              <label className="deactive" htmlFor="password">
+                Password
+              </label>
             </div>
+          </div>
 
-            <button
-              className="btn btn-login waves-effect waves-light"
-              type="submit"
-              name="action"
-              disabled={!this.validateForm()}
-              block="true"
-            >
-              Submit
-            </button>
-          </form>
-        </div>
+          <button
+            className="btn btn-login waves-effect waves-light"
+            type="submit"
+            name="action"
+            disabled={!this.validateForm()}
+            block="true"
+          >
+            Submit
+          </button>
+        </form>
       </div>
     );
   }

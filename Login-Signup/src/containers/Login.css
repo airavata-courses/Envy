@@ -12,8 +12,9 @@
     transition: 0.3s;
     width: 400px;
     height: 360px;
-    margin-left: 10%;
-    margin-top: 10%;
+    margin-left: 30%;
+    margin-top: 20%;
+    border-radius: 8px;
   }
 
   .btn-login {

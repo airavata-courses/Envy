@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Image from "./image";
 import "./Signup.css";
 
 export default class Signup extends Component {
@@ -61,60 +60,57 @@ export default class Signup extends Component {
 
   render() {
     return (
-      <div className="classGrid">
-        <Image />
-        <div className="Signup cardsignup grey lighten-3">
-          <form onSubmit={this.handleSubmit}>
-            <div className="row-signup">
-              <div className="input-field col s6">
-                <input
-                  id="email"
-                  type="email"
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                />
-                <label className="deactive" htmlFor="email">
-                  Email
-                </label>
-              </div>
+      <div className="Signup cardsignup grey lighten-3">
+        <form onSubmit={this.handleSubmit}>
+          <div className="row-signup">
+            <div className="input-field col s6">
+              <input
+                id="email"
+                type="email"
+                value={this.state.email}
+                onChange={this.handleChange}
+              />
+              <label className="deactive" htmlFor="email">
+                Email
+              </label>
             </div>
-            <div className="row-signup-password">
-              <div className="input-field col s6">
-                <input
-                  id="password"
-                  type="password"
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                />
-                <label className="deactive" htmlFor="password">
-                  Password
-                </label>
-              </div>
+          </div>
+          <div className="row-signup-password">
+            <div className="input-field col s6">
+              <input
+                id="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+              <label className="deactive" htmlFor="password">
+                Password
+              </label>
             </div>
-            <div className="row-signup-password">
-              <div className="input-field col s6">
-                <input
-                  id="confirmPassword"
-                  type="password"
-                  value={this.state.confirmPassword}
-                  onChange={this.handleChange}
-                />
-                <label className="deactive" htmlFor="confirmPassword">
-                  Confirm Password
-                </label>
-              </div>
+          </div>
+          <div className="row-signup-password">
+            <div className="input-field col s6">
+              <input
+                id="confirmPassword"
+                type="password"
+                value={this.state.confirmPassword}
+                onChange={this.handleChange}
+              />
+              <label className="deactive" htmlFor="confirmPassword">
+                Confirm Password
+              </label>
             </div>
-            <button
-              className="btn btn-login waves-effect waves-light"
-              type="submit"
-              name="action"
-              disabled={!this.validateForm()}
-              block="true"
-            >
-              Signup
-            </button>
-          </form>
-        </div>
+          </div>
+          <button
+            className="btn btn-login waves-effect waves-light"
+            type="submit"
+            name="action"
+            disabled={!this.validateForm()}
+            block="true"
+          >
+            Signup
+          </button>
+        </form>
       </div>
     );
   }

@@ -4,13 +4,20 @@ import Home from "./containers/Home";
 import NotFound from "./containers/NotFound";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
+import DisplaySearchResults from "./containers/DisplaySearchResults";
 import AppliedRoute from "./components/AppliedRoute";
 
-export default () => (
+export default ({ childProps }) => (
   <Switch>
-    <AppliedRoute path="/" exact component={Home} />
-    <AppliedRoute path="/login" exact component={Login} />
+    <AppliedRoute path="/" exact component={Home} props={childProps} />
+    <AppliedRoute path="/login" exact component={Login} props={childProps} />
     <AppliedRoute path="/signup" exact component={Signup} />
+    <AppliedRoute
+      path="/display-results"
+      exact
+      component={DisplaySearchResults}
+      props={childProps}
+    />
     <Route component={NotFound} />
   </Switch>
 );
