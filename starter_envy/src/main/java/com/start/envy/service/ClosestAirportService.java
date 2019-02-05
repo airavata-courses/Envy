@@ -23,10 +23,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service("ClosestAirportService")
 public class ClosestAirportService {
 
+	public double distance(double lat1, double lon1, double lat2, double lon2) {
+
+
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        dist = dist * 0.8684;
+          
+        return (dist);
+      }
+	public double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+      }
+	public double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+      }
+
 	
 	public String findClosestAirport(double lat,double lng) throws JsonParseException, JsonMappingException, IOException {
 		
-		
+		System.out.println("inside closest");
 		String url = "https://cometari-airportsfinder-v1.p.rapidapi.com/api/airports/by-radius?X-RapidAPI-Key=84f658fc33msh8dc84ca11f27689p175a8fjsnf4214dbe7a20&radius=50&lng="+lng+"&lat="+lat;
 		//String url = "https://cometari-airportsfinder-v1.p.rapidapi.com/api/airports/by-radius?X-RapidAPI-Key=84f658fc33msh8dc84ca11f27689p175a8fjsnf4214dbe7a20";
 		RestTemplate restTemplate = new RestTemplate();
@@ -39,15 +58,28 @@ public class ClosestAirportService {
 	    ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 	    String results = result.getBody();
 	    int i;
-	    String finalResult ="";
+	    String finalResult ="",closestairport= "";
+	    double min = 999999.999;
 	    ObjectMapper objectMapper = new ObjectMapper();
+	    Map<String,String> ret = null;
 	    List output = objectMapper.readValue(results, List.class);
 	    for(i=0;i<output.size();i++) {
 	    	Map<?,?> temp = (Map<?,?>) output.get(i);
-	    	String name = (String) temp.get("name");
-	    	finalResult += name + "\n";
+	    	String name = (String) temp.get("code");
+	    	 Map<?, ?> location = (Map<?, ?>) temp.get("location"); 
+//	    	String latlng =  location.get("latitude")+","+location.get("longitude");
+	    	double latitude =  (double) location.get("latitude");
+	    	double longitude =  (double) location.get("longitude");
+	    	double tempdistance = distance(lat, lng, latitude, longitude);
+	    	System.out.println(tempdistance);
+	    	if (tempdistance<min) {
+	    		min = tempdistance;
+	    		closestairport = name;
+	    	}
+	    	//ret.put(name, latlng);
+	    	finalResult += name+"\n";
 	    }
-//	    System.out.println(output);
+	   System.out.println(closestairport);
 //	    Map<?,?> output = objectMapper.readValue(results, Map.class);
 	    System.out.println(result.getBody());
 	    System.out.println(finalResult);

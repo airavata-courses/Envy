@@ -52,13 +52,18 @@ public class StarterController {
 	@RequestMapping("/getairport")
 	public void getAirport(@RequestParam(value="from", defaultValue="World") String from,@RequestParam(value="to", defaultValue="World") String to) throws JsonParseException, JsonMappingException, IOException {
 		try {
-			double[] location = locationService.findLocation("NewYork");
-			double lat = location[0];
-			double lng = location[1];
-			String arguments = Double.toString(lng)+","+Double.toString(lat);
-			System.out.println(arguments);
-			String result = ClosestAirport.findClosestAirport(lat, lng);
-			String flights = GetFlights.findFlights();
+			double[] start_location = locationService.findLocation("Califoria");
+			double[] end_location =locationService.findLocation("NewYork");
+			double start_lat = start_location[0];
+			double start_lng = start_location[1];
+			
+			double end_lat = end_location[0];
+			double end_lng = end_location[1];
+			
+			String source_airports = ClosestAirport.findClosestAirport(start_lat, start_lng);
+			String destination_airports = ClosestAirport.findClosestAirport(end_lat, end_lng);
+			
+			String flights = GetFlights.findFlights("FAT","JFK");
 			
 		} catch (RestClientException e) {
 			// TODO Auto-generated catch block
