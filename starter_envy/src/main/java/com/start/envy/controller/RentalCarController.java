@@ -56,7 +56,7 @@ public class RentalCarController {
 			ObjectMapper mapper = new ObjectMapper();
 			Map<String,Object> map = mapper.readValue(result.getBody(), Map.class);
 			
-			System.out.println(result);
+			System.out.println(map);
 		
 		}catch(Exception e) {
 			e.printStackTrace();

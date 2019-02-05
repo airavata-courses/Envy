@@ -16,6 +16,7 @@ import com.start.envy.service.ClosestAirportService;
 import com.start.envy.service.GetFlightsService;
 import com.start.envy.service.LocationService;
 import com.start.envy.service.NearestAirportService;
+import com.start.envy.service.RentalCarService;
 
 @RestController
 public class StarterController {
@@ -30,6 +31,10 @@ public class StarterController {
 	
 	@Autowired
 	private GetFlightsService GetFlights;
+	
+	@Autowired
+	private RentalCarService rentalCarService;
+	
 	
 	@RequestMapping("/getRideRequests")
     public void getCoordinates(@RequestParam(value="from", defaultValue="World") String from,@RequestParam(value="to", defaultValue="World") String to) {
@@ -74,4 +79,20 @@ public class StarterController {
 		}	
 	
 	}
+	
+	
+	@RequestMapping("/getCarRideRequests")
+	public void getCarRideRequests(@RequestParam(value="start_latitude",defaultValue = "") String start_latitude,
+			@RequestParam(value="start_longitude",defaultValue = "") String start_longitude,
+			@RequestParam(value="end_latitude",defaultValue = "") String end_latitude,
+			@RequestParam(value="end_longitude",defaultValue = "") String end_longitude) {
+		System.out.println("In here");
+		
+		
+		rentalCarService.getCarRideRequests(start_latitude, start_longitude, end_latitude, end_longitude);
+		
+		
+		
+	}
+
 }
