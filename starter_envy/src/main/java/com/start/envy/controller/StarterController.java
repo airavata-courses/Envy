@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,8 @@ import org.springframework.web.client.RestClientException;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.start.envy.model.ResponseVO;
+import com.start.envy.model.SearchDetails;
 import com.start.envy.service.ClosestAirportService;
 import com.start.envy.service.GetFlightsService;
 import com.start.envy.service.LocationService;
@@ -80,18 +83,15 @@ public class StarterController {
 	
 	}
 	
-	
+	@CrossOrigin(allowedHeaders = "GET, POST, DELETE, PUT, OPTIONS, HEAD")
 	@RequestMapping("/getCarRideRequests")
-	public void getCarRideRequests(@RequestParam(value="start_latitude",defaultValue = "") String start_latitude,
+	public ResponseVO getCarRideRequests(@RequestParam(value="start_latitude",defaultValue = "") String start_latitude,
 			@RequestParam(value="start_longitude",defaultValue = "") String start_longitude,
 			@RequestParam(value="end_latitude",defaultValue = "") String end_latitude,
 			@RequestParam(value="end_longitude",defaultValue = "") String end_longitude) {
 		System.out.println("In here");
 		
-		
-		rentalCarService.getCarRideRequests(start_latitude, start_longitude, end_latitude, end_longitude);
-		
-		
+		return rentalCarService.getCarRideRequests(start_latitude, start_longitude, end_latitude, end_longitude);
 		
 	}
 
