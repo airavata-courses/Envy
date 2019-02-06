@@ -5,6 +5,17 @@ public class ResponseBody {
 	private String travelTimeStamp;
 	private String endpoints;
 	private Double price;
+	private String endcodes; 
+public String getEndcodes() {
+		return endcodes;
+	}
+	public void setEndcodes(String endcodes) {
+		this.endcodes = endcodes;
+	}
+	//	private Double startlatitude;
+//	private Double endLatitude;
+//	private Double startLongitude;
+//	private Double endLongitude;
 	public String getCompany() {
 		return company;
 	}

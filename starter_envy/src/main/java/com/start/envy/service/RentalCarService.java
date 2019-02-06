@@ -29,10 +29,10 @@ public class RentalCarService {
 	
 	
 	
-	public ResponseVO getCarRideRequests(String start_latitude,
-			String start_longitude,
-			String end_latitude,
-			String end_longitude) {
+	public SearchDetails getCarRideRequests(double start_latitude,
+			double start_longitude,
+			double end_latitude,
+			double end_longitude) {
 		System.out.println("In here");
 		final String uri = "https://api.uber.com/v1.2/estimates/price";
 //				+ "start_latitude=37.7752315&start_longitude=-122.418075&end_latitude=37.7752415&end_longitude=-122.518075";
@@ -67,28 +67,11 @@ public class RentalCarService {
 			Double estimate = (Double) obj.get("low_estimate");
 			
 			searchDetails.setSearchId("s1");
-			searchDetails.setPrice(estimate);
-			searchDetails.setCarrier("Uber");
-			searchDetails.setType("Rental");
-			searchDetails.setSource("NYC");
-			searchDetails.setDestination("ORD");
-			ResponseBody cabOrigin = new ResponseBody();
-			cabOrigin.setCompany("Uber");
-			cabOrigin.setEndpoints("NYC");
-			cabOrigin.setPrice(estimate);
+			searchDetails.setTotalprice(estimate);
+			searchDetails.setCarcarrier("Uber");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-
 			String dateString = format.format( new Date()   );
-			cabOrigin.setTravelTimeStamp(dateString);
-			ResponseBody cabDestination = new ResponseBody();
-			cabDestination.setCompany("Uber");
-			cabDestination.setEndpoints("NYC");
-			cabDestination.setPrice(estimate);
-			cabDestination.setTravelTimeStamp(new Date().toString());
-			rvo.setSuccess(true);
-			rvo.setCabOrigin(cabOrigin);
-			rvo.setCabDestination(cabDestination);
-		
+			searchDetails.setDate(dateString);
 			
 			
 			
@@ -98,7 +81,7 @@ public class RentalCarService {
 		}
 
 		
-		return rvo;
+		return searchDetails;
 	}
 
 

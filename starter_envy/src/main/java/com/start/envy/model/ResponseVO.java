@@ -1,11 +1,26 @@
 package com.start.envy.model;
 
+import java.util.List;
+
 public class ResponseVO {
 	
 	private Boolean success;
 	private ResponseBody cabOrigin;
-	private ResponseBody flight;
+	private List<ResponseBody> flight;
+	private Double startlatitude;
+	private Double endLatitude;
+	private Double startLongitude;
+	private Double endLongitude;
 	private ResponseBody cabDestination;
+	private String searchId;
+	
+	
+	public String getSearchId() {
+		return searchId;
+	}
+	public void setSearchId(String searchId) {
+		this.searchId = searchId;
+	}
 	public Boolean getSuccess() {
 		return success;
 	}
@@ -18,11 +33,35 @@ public class ResponseVO {
 	public void setCabOrigin(ResponseBody cabOrigin) {
 		this.cabOrigin = cabOrigin;
 	}
-	public ResponseBody getFlight() {
-		return flight;
+	public List<ResponseBody> getFlight() {
+		return  flight;
 	}
-	public void setFlight(ResponseBody flight) {
+	public void setFlight(List<ResponseBody> flight) {
 		this.flight = flight;
+	}
+	public Double getStartlatitude() {
+		return startlatitude;
+	}
+	public void setStartlatitude(Double startlatitude) {
+		this.startlatitude = startlatitude;
+	}
+	public Double getEndLatitude() {
+		return endLatitude;
+	}
+	public void setEndLatitude(Double endLatitude) {
+		this.endLatitude = endLatitude;
+	}
+	public Double getStartLongitude() {
+		return startLongitude;
+	}
+	public void setStartLongitude(Double startLongitude) {
+		this.startLongitude = startLongitude;
+	}
+	public Double getEndLongitude() {
+		return endLongitude;
+	}
+	public void setEndLongitude(Double endLongitude) {
+		this.endLongitude = endLongitude;
 	}
 	public ResponseBody getCabDestination() {
 		return cabDestination;

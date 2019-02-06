@@ -1,60 +1,141 @@
 package com.start.envy.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class SearchDetails {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name = "search_details")
+public class SearchDetails implements Serializable{
 
-	private String type;
-	private String carrier;
-	private Double price;
-	private String source;
-	private String destination;
-	private Date date;
+	
+	
+	public SearchDetails(String carcarrier, String flightcarrier, Double totalprice, String carsource,
+			String cardestination, String flightsource, String flightdestination, String date, String searchId) {
+		super();
+		this.carcarrier = carcarrier;
+		this.flightcarrier = flightcarrier;
+		this.totalprice = totalprice;
+		this.carsource = carsource;
+		this.cardestination = cardestination;
+		this.flightsource = flightsource;
+		this.flightdestination = flightdestination;
+		this.date = date;
+		this.searchId = searchId;
+	}
+	@Column(name="car_carrier")
+	private String carcarrier;
+	@Column(name="flight_carrier")
+	private String flightcarrier;
+	@Id
+	@Column(name="total_price")
+	private Double totalprice;
+	@Column(name="car_source")
+	private String carsource;
+	@Column(name="car_destination")
+	private String cardestination;
+	@Column(name="flight_source")
+	
+	private String flightsource;
+	@Column(name="flight_destination")
+	private String flightdestination;
+	@Column(name="date")
+	private String date;
+	@Column(name="search_Id")
 	private String searchId;
+	@Column(name="carSourcePrice")
 	
+	private Double carSourcePrice;
+	@Column(name="carDestinationPrice")
+	private Double carDestinationPrice;
+	@Column(name="flight_Price")
+	private Double flightPrice;
 	
+	public Double getCarSourcePrice() {
+		return carSourcePrice;
+	}
+
+	public void setCarSourcePrice(Double carSourcePrice) {
+		this.carSourcePrice = carSourcePrice;
+	}
+
+	public Double getCarDestinationPrice() {
+		return carDestinationPrice;
+	}
+
+	public void setCarDestinationPrice(Double carDestinationPrice) {
+		this.carDestinationPrice = carDestinationPrice;
+	}
+
+	public Double getFlightPrice() {
+		return flightPrice;
+	}
+
+	public void setFlightPrice(Double flightPrice) {
+		this.flightPrice = flightPrice;
+	}
+
+	public SearchDetails() {}
+	
+	public String getCarcarrier() {
+		return carcarrier;
+	}
+	public void setCarcarrier(String carcarrier) {
+		this.carcarrier = carcarrier;
+	}
+	public String getFlightcarrier() {
+		return flightcarrier;
+	}
+	public void setFlightcarrier(String flightcarrier) {
+		this.flightcarrier = flightcarrier;
+	}
+	public Double getTotalprice() {
+		return totalprice;
+	}
+	public void setTotalprice(Double totalprice) {
+		this.totalprice = totalprice;
+	}
+	public String getCarsource() {
+		return carsource;
+	}
+	public void setCarsource(String carsource) {
+		this.carsource = carsource;
+	}
+	public String getCardestination() {
+		return cardestination;
+	}
+	public void setCardestination(String cardestination) {
+		this.cardestination = cardestination;
+	}
+	public String getFlightsource() {
+		return flightsource;
+	}
+	public void setFlightsource(String flightsource) {
+		this.flightsource = flightsource;
+	}
+	public String getFlightdestination() {
+		return flightdestination;
+	}
+	public void setFlightdestination(String flightdestination) {
+		this.flightdestination = flightdestination;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public String getSearchId() {
 		return searchId;
 	}
 	public void setSearchId(String searchId) {
 		this.searchId = searchId;
 	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public String getCarrier() {
-		return carrier;
-	}
-	public void setCarrier(String carrier) {
-		this.carrier = carrier;
-	}
-	public Double getPrice() {
-		return price;
-	}
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-	public String getSource() {
-		return source;
-	}
-	public void setSource(String source) {
-		this.source = source;
-	}
-	public String getDestination() {
-		return destination;
-	}
-	public void setDestination(String destination) {
-		this.destination = destination;
-	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
+	
+	
 	
 	
 	
