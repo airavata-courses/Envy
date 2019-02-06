@@ -9,6 +9,7 @@ export default class Home extends Component {
     this.state = {
       origin: "",
       destination: "",
+      date: "",
       cheapest: { cab_origin: "", cab_destination: "", flight: "" },
       remaining_results: [
         { cab_origin: "", cab_destination: "", flight: "" },
@@ -25,7 +26,14 @@ export default class Home extends Component {
     });
   };
   validateForm() {
-    return this.state.origin.length > 0 && this.state.destination.length > 0;
+    return (
+      this.state.origin.length > 0 &&
+      this.state.destination.length > 0 &&
+      this.state.date.length === 5 &&
+      this.state.date.includes("-") &&
+      this.state.date[0] + this.state.date[1] > 6 &&
+      this.state.date[3] + this.state.date[4] >= 2
+    );
   }
   handleSubmit = event => {
     const searchResealts = {
@@ -124,29 +132,44 @@ export default class Home extends Component {
                     </label>
                   </div>
                 </div>
-                <p className="radio">
-                  <label>
-                    <input
-                      className="with-gap"
-                      name="group3"
-                      type="radio"
-                      checked={true}
-                      value={this.state.rental}
-                      onChange={this.handleChange}
-                    />
-                    <span>Cabs</span>
-                  </label>
-                  <label>
-                    <input
-                      className="with-gap"
-                      name="group3"
-                      type="radio"
-                      value={this.state.rental}
-                      onChange={this.handleChange}
-                    />
-                    <span>Rental Car</span>
-                  </label>
-                </p>
+                <div className="div-radio-date">
+                  <p className="radio">
+                    <label>
+                      <input
+                        className="with-gap"
+                        name="group3"
+                        type="radio"
+                        checked={true}
+                        value={this.state.rental}
+                        onChange={this.handleChange}
+                      />
+                      <span>Cabs</span>
+                    </label>
+                    <label>
+                      <input
+                        className="with-gap"
+                        name="group3"
+                        type="radio"
+                        value={this.state.rental}
+                        onChange={this.handleChange}
+                      />
+                      <span>Rental Car</span>
+                    </label>
+                  </p>
+                  <div className="row-date">
+                    <div className="input-field col s6">
+                      <input
+                        id="date"
+                        type="text"
+                        value={this.state.date}
+                        onChange={this.handleChange}
+                      />
+                      <label className="deactive" htmlFor="date">
+                        DD-MM
+                      </label>
+                    </div>
+                  </div>
+                </div>
                 <button
                   className="btn waves-effect waves-light"
                   type="submit"

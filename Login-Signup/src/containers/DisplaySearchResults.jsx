@@ -24,7 +24,7 @@ export default class DisplaySearchResults extends Component {
 
   render() {
     let renderComponent = <NotFound />;
-    if (this.props.isAuthenticated === false) {
+    if (this.props.isAuthenticated !== false) {
       const val = this.state;
       renderComponent = (
         <React.Fragment>
