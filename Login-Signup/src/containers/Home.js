@@ -100,7 +100,7 @@ export default class Home extends Component {
 
   render() {
     let renderComponent = <NotFound />;
-    if (this.props.isAuthenticated === false) {
+    if (this.props.isAuthenticated !== false) {
       renderComponent = (
         <div className="classGridHome">
           <div className="cardl contain grey lighten-3">

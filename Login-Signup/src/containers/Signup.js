@@ -49,7 +49,7 @@ export default class Signup extends Component {
         if (data.status.error === "false") {
           console.log("user has signed in");
           this.props.history.push({
-            pathname: "/",
+            pathname: "/home",
             authorize: { authorize: this.state.error }
           });
         }

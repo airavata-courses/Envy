@@ -45,7 +45,7 @@ export default class Login extends Component {
           console.log("user logged in");
           this.props.userHasAuthenticated(true);
           this.props.history.push({
-            pathname: "/",
+            pathname: "/home",
             authorize: { authorize: this.state.error }
           });
         } else {

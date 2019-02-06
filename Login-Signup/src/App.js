@@ -41,7 +41,7 @@ class App extends Component {
         >
           <Navbar.Header>
             <Navbar.Brand>
-              <Link to="/">Travel Guide</Link>
+              <Link to="/home">Travel Guide</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
@@ -54,7 +54,7 @@ class App extends Component {
                   <LinkContainer to="/signup">
                     <NavItem>Signup</NavItem>
                   </LinkContainer>
-                  <LinkContainer to="/login">
+                  <LinkContainer to="/">
                     <NavItem>Login</NavItem>
                   </LinkContainer>
                 </Fragment>
