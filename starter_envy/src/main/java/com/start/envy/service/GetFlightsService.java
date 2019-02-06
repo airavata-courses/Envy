@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class GetFlightsService {
 
 	
-public String findFlights(String originPlace,String destinationPlace) throws JsonParseException, JsonMappingException, IOException {
+public ResponseEntity<String> findFlights(String originPlace,String destinationPlace) throws JsonParseException, JsonMappingException, IOException {
 		
 		String country ="US";
 		String currency = "USD";
@@ -74,6 +74,6 @@ public String findFlights(String originPlace,String destinationPlace) throws Jso
 	    //System.out.println(finalResult);
 	    //System.out.println(output);
 	    
-        return results;
+        return result;
 }
 }

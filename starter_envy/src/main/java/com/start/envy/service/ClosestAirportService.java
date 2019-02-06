@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.io.IOException;
 import java.util.Arrays;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,7 +19,9 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.start.envy.repo.AirportRepository;
 
+ 
 @Service("ClosestAirportService")
 public class ClosestAirportService {
 
@@ -63,6 +65,7 @@ public class ClosestAirportService {
 	    ObjectMapper objectMapper = new ObjectMapper();
 	    Map<String,String> ret = null;
 	    List output = objectMapper.readValue(results, List.class);
+	   // List all = null ;
 	    for(i=0;i<output.size();i++) {
 	    	Map<?,?> temp = (Map<?,?>) output.get(i);
 	    	String name = (String) temp.get("code");
@@ -71,17 +74,20 @@ public class ClosestAirportService {
 	    	double latitude =  (double) location.get("latitude");
 	    	double longitude =  (double) location.get("longitude");
 	    	double tempdistance = distance(lat, lng, latitude, longitude);
-	    	System.out.println(tempdistance);
+	    	//System.out.println(tempdistance);
 	    	if (tempdistance<min) {
 	    		min = tempdistance;
 	    		closestairport = name;
 	    	}
 	    	//ret.put(name, latlng);
 	    	finalResult += name+"\n";
+	    	//all.add(name);
 	    }
-	   System.out.println(closestairport);
+	     
+	   // List alliata  = temp.findAll();
+	  // System.out.println(closestairport);
 //	    Map<?,?> output = objectMapper.readValue(results, Map.class);
-	    System.out.println(result.getBody());
+	    //System.out.println(result.getBody());
 	    System.out.println(finalResult);
 	    //System.out.println(output);
 	    
