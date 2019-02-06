@@ -4,12 +4,14 @@ import "./resultCard.css";
 export default class resultCard extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    console.log("props", props);
     this.state = {
       val: this.props.value
     };
   }
-
+  onComponentWillMount() {
+    console.log("state", this.state);
+  }
   render() {
     const disp = this.state.val;
     return (
@@ -35,7 +37,7 @@ export default class resultCard extends Component {
               <p className="diplome">{disp.cab_destination}</p>
               <span className="point" />
               <p className="description">
-                Ab start time {disp.cab_destination_time} | Fare charge
+                Cab start time {disp.cab_destination_time} | Fare charge
                 {disp.cab_destination_fare}
               </p>
             </li>

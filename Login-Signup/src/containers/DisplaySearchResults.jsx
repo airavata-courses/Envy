@@ -8,23 +8,60 @@ export default class DisplaySearchResults extends Component {
     super(props);
     const v = props.location.authorize;
     this.state = {
-      origin: v.origin,
-      destination: v.destination,
-      origin_cab_endpoint: v.cab_origin_endpoint,
-      destination_cab_startpoint: v.cab_destination_startpoint,
-      cheap_flight: v.cheapest.flight,
-      cheap_flight_time: v.cheapest.flight_time,
-      cheap_destination_cab: v.cheapest.cab_destination,
-      cheap_destination_cab_time: v.cheapest.cab_destination_time,
-      cheap_origin_cab: v.cheapest.cab_origin,
-      cheap_origin_cab_time: v.cheapest.cab_time_origin,
-      remaining_results: v.remaining_results
+      searchid: "",
+      origin: "",
+      destination: "",
+      origin_cab_endpoint: "",
+      destination_cab_startpoint: "",
+      cheap_flight: "",
+      cheap_flight_time: "",
+      cheap_destination_cab: "",
+      cheap_destination_cab_time: "",
+      cheap_origin_cab: "",
+      cheap_origin_cab_time: "",
+      remaining_results: [0]
     };
   }
-
+  componentWillMount() {
+    const url = "http://localhost:3000/test";
+    let data = {
+      searchid: this.state.searchid
+    };
+    fetch(url, {
+      method: "get",
+      data: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        const t = data.status;
+        const tc = t.cheapest;
+        if (data.status.type === "success") {
+          this.setState({
+            destination: t.destination,
+            origin: t.origin,
+            cheap_destination_cab: tc.cab_destination,
+            cheap_origin_cab: tc.cab_origin,
+            cheap_flight: tc.cheap_flight,
+            cheap_flight_time: tc.flight_time,
+            cheap_destination_cab_time: tc.cab_destination_time,
+            cheap_origin_cab_time: tc.cab_origin_time,
+            destination_cab_startpoint: tc.cab_destination_startpoint,
+            origin_cab_endpoint: tc.cab_origin_endpoint,
+            remaining_results: t.remaining_results
+          });
+        }
+      })
+      .catch(error => console.error("Error:", error));
+  }
   render() {
     let renderComponent = <NotFound />;
-    if (this.props.isAuthenticated !== false) {
+    if (this.props.isAuthenticated === false) {
       const val = this.state;
       renderComponent = (
         <React.Fragment>
@@ -83,7 +120,7 @@ export default class DisplaySearchResults extends Component {
           </Timeline>
           <hr />
           <div className="display-result">
-            {this.state.remaining_results.map(n => {
+            {this.state.remaining_results.slice(0).map(n => {
               return <ResultCard value={n} />;
             })}
           </div>
@@ -91,9 +128,11 @@ export default class DisplaySearchResults extends Component {
       );
     }
     return (
-      <div>
-        <div>{renderComponent}</div>
-      </div>
+      this.state.remaining_results[0] && (
+        <div>
+          <div>{renderComponent}</div>
+        </div>
+      )
     );
   }
 }

@@ -36,66 +36,34 @@ export default class Home extends Component {
     );
   }
   handleSubmit = event => {
-    const searchResealts = {
-      origin: "2665 E, Bloomington",
-      destination: "Stonu Brook, New York",
-      cab_origin_endpoint: "Chicago O'Hare Airport",
-      cab_destination_startpoint: "JFK Airport",
-      cheapest: {
-        cab_origin: "Lyft",
-        cab_fare_origin: "45$",
-        cab_time_origin: "2:30hrs",
-        cab_destination: "Uber",
-        cab_destination_fare: "30$",
-        cab_destination_time: "5:45hrs",
-        flight: "American Airlines",
-        flight_time: "4:00hrs"
-      },
-      remaining_results: [
-        {
-          cab_origin: "Ola",
-          cab_fare_origin: "45$",
-          cab_time_origin: "2:30hrs",
-          cab_destination: "Taxi fare",
-          cab_destination_fare: "30$",
-          cab_destination_time: "5:45hrs",
-          flight: "Indigo",
-          flight_time: "4:00hrs"
-        },
-        {
-          cab_origin: "Didi Chuxing",
-          cab_fare_origin: "45$",
-          cab_time_origin: "2:30hrs",
-          cab_destination: "Uber",
-          cab_destination_fare: "30$",
-          cab_destination_time: "5:45hrs",
-          flight: "Kingfisher"
-        },
-        {
-          cab_origin: "Didi Chuxing",
-          cab_time_origin: "2:30hrs",
-          cab_destination: "Uber",
-          cab_destination_fare: "30$",
-          cab_destination_time: "5:45hrs",
-          flight: "Vistara",
-          flight_time: "4:00hrs"
-        },
-        {
-          cab_origin: "Uber",
-          cab_fare_origin: "45$",
-          cab_time_origin: "2:30hrs",
-          cab_destination: "Yellow Cabs",
-          cab_destination_fare: "30$",
-          cab_destination_time: "5:45hrs",
-          flight: "Indigo",
-          flight_time: "4:00hrs"
-        }
-      ]
+    const url = "http://localhost:9200/getAirport";
+    let data = {
+      origin: this.state.origin,
+      destination: this.state.destination,
+      date: this.state.date
     };
-    this.props.history.push({
-      pathname: "/display-results",
-      authorize: searchResealts
-    });
+    fetch(url, {
+      method: "get",
+      data: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        if (data.success === true) {
+          this.props.history.push({
+            pathname: "/display-results",
+            authorize: { searchid: data.status.searchid }
+          });
+          //   console.log("user has signed in");
+        }
+      })
+      .catch(error => console.error("Error:", error));
+    event.preventDefault();
   };
 
   render() {
