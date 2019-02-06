@@ -9,6 +9,13 @@ export default class Home extends Component {
     this.state = {
       origin: "",
       destination: "",
+      cheapest: { cab_origin: "", cab_destination: "", flight: "" },
+      remaining_results: [
+        { cab_origin: "", cab_destination: "", flight: "" },
+        { cab_origin: "", cab_destination: "", flight: "" },
+        { cab_origin: "", cab_destination: "", flight: "" },
+        { cab_origin: "", cab_destination: "", flight: "" }
+      ],
       rental: ""
     };
   }
@@ -21,12 +28,71 @@ export default class Home extends Component {
     return this.state.origin.length > 0 && this.state.destination.length > 0;
   }
   handleSubmit = event => {
-    this.props.history.push("/display-results");
+    const searchResealts = {
+      origin: "2665 E, Bloomington",
+      destination: "Stonu Brook, New York",
+      cab_origin_endpoint: "Chicago O'Hare Airport",
+      cab_destination_startpoint: "JFK Airport",
+      cheapest: {
+        cab_origin: "Lyft",
+        cab_fare_origin: "45$",
+        cab_time_origin: "2:30hrs",
+        cab_destination: "Uber",
+        cab_destination_fare: "30$",
+        cab_destination_time: "5:45hrs",
+        flight: "American Airlines",
+        flight_time: "4:00hrs"
+      },
+      remaining_results: [
+        {
+          cab_origin: "Ola",
+          cab_fare_origin: "45$",
+          cab_time_origin: "2:30hrs",
+          cab_destination: "Taxi fare",
+          cab_destination_fare: "30$",
+          cab_destination_time: "5:45hrs",
+          flight: "Indigo",
+          flight_time: "4:00hrs"
+        },
+        {
+          cab_origin: "Didi Chuxing",
+          cab_fare_origin: "45$",
+          cab_time_origin: "2:30hrs",
+          cab_destination: "Uber",
+          cab_destination_fare: "30$",
+          cab_destination_time: "5:45hrs",
+          flight: "Kingfisher"
+        },
+        {
+          cab_origin: "Didi Chuxing",
+          cab_time_origin: "2:30hrs",
+          cab_destination: "Uber",
+          cab_destination_fare: "30$",
+          cab_destination_time: "5:45hrs",
+          flight: "Vistara",
+          flight_time: "4:00hrs"
+        },
+        {
+          cab_origin: "Uber",
+          cab_fare_origin: "45$",
+          cab_time_origin: "2:30hrs",
+          cab_destination: "Yellow Cabs",
+          cab_destination_fare: "30$",
+          cab_destination_time: "5:45hrs",
+          flight: "Indigo",
+          flight_time: "4:00hrs"
+        }
+      ]
+    };
+    this.props.history.push({
+      pathname: "/display-results",
+      authorize: searchResealts
+    });
   };
 
   render() {
     let renderComponent = <NotFound />;
-    if (this.props.isAuthenticated !== false) {
+    if (this.props.isAuthenticated === false) {
       renderComponent = (
         <div className="classGridHome">
           <div className="cardl contain grey lighten-3">

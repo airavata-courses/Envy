@@ -1,0 +1,96 @@
+.card-result {
+  box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 900px;
+  height: 150px;
+  margin-left: 15%;
+  margin-top: 5%;
+  border-radius: 8px;
+  margin-bottom: 5%;
+  padding-top: 1px;
+}
+.card-result:hover {
+  box-shadow: 4px 8px 16px 4px rgba(0, 0, 0, 0.2);
+}
+
+.display-result {
+  display: absolute;
+  margin: 0;
+}
+
+.text-style {
+  margin: 5%;
+}
+
+/* ---- Timeline ---- */
+ol {
+  position: relative;
+  display: block;
+  margin: 8%;
+  height: 4px;
+  background: #ff930c;
+}
+ol::before,
+ol::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  display: block;
+  width: 0;
+  height: 0;
+  border-radius: 10px;
+  border: 10px solid #009688;
+}
+ol::before {
+  left: -5px;
+}
+ol::after {
+  right: -10px;
+  border: 10px solid transparent;
+  border-right: 0;
+  border-left: 20px solid #009688;
+  border-radius: 3px;
+}
+
+/* ---- Timeline elements ---- */
+li {
+  position: relative;
+  display: inline-block;
+  width: 230px;
+  height: 16px;
+}
+li .diplome {
+  position: absolute;
+  top: -38px;
+  left: 36%;
+  color: #000000;
+}
+li .point {
+  content: "";
+  top: -4px;
+  left: 43%;
+  display: block;
+  width: 6px;
+  height: 6px;
+  border: 4px solid #31708f;
+  border-radius: 10px;
+  background: #fff;
+  position: absolute;
+}
+li .description {
+  display: none;
+  background-color: #424242;
+  width: 300px;
+  position: absolute;
+  font-weight: normal;
+  z-index: 1;
+}
+
+/* ---- Hover effects ---- */
+li:hover {
+  cursor: pointer;
+  color: #ffff;
+}
+li:hover .description {
+  display: flex;
+}

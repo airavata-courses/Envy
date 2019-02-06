@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Alert } from "reactstrap";
 import "./Login.css";
 
 export default class Login extends Component {
@@ -20,6 +21,10 @@ export default class Login extends Component {
       [event.target.id]: event.target.value
     });
   };
+
+  displayAlert() {
+    return <Alert color="danger">This is a danger alert — check it out!</Alert>;
+  }
 
   handleSubmit = event => {
     const url = "http://localhost:3000/login";
@@ -43,6 +48,13 @@ export default class Login extends Component {
             pathname: "/",
             authorize: { authorize: this.state.error }
           });
+        } else {
+          console.log("Invalid Credemtials");
+          this.props.userHasAuthenticated(false);
+          alert("Invalid Credentials");
+          return (
+            <Alert color="danger">This is a danger alert — check it out!</Alert>
+          );
         }
       })
       .catch(error => console.error("Error:", error));

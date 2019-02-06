@@ -1,73 +1,99 @@
 import React, { Component } from "react";
 import { Timeline, TimelineItem } from "vertical-timeline-component-for-react";
 import NotFound from "./NotFound";
+import ResultCard from "./resultCard";
 
 export default class DisplaySearchResults extends Component {
   constructor(props) {
     super(props);
+    const v = props.location.authorize;
     this.state = {
-      results: ""
+      origin: v.origin,
+      destination: v.destination,
+      origin_cab_endpoint: v.cab_origin_endpoint,
+      destination_cab_startpoint: v.cab_destination_startpoint,
+      cheap_flight: v.cheapest.flight,
+      cheap_flight_time: v.cheapest.flight_time,
+      cheap_destination_cab: v.cheapest.cab_destination,
+      cheap_destination_cab_time: v.cheapest.cab_destination_time,
+      cheap_origin_cab: v.cheapest.cab_origin,
+      cheap_origin_cab_time: v.cheapest.cab_time_origin,
+      remaining_results: v.remaining_results
     };
   }
 
   render() {
     let renderComponent = <NotFound />;
-    if (this.props.isAuthenticated !== false) {
+    if (this.props.isAuthenticated === false) {
+      const val = this.state;
       renderComponent = (
-        <Timeline lineColor={"#ddd"}>
-          <TimelineItem
-            key="001"
-            dateText="11/03/2019 – 2:30 Hrs"
-            dateInnerStyle={{ background: "#61b8ff" }}
-            bodyContainerStyle={{
-              background: "#eeeeee",
-              padding: "10px",
-              borderRadius: "8px",
-              boxShadow: "0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2)"
-            }}
-          >
-            <h5>Uber</h5>
-            <p>
-              Ride from 2665 E, 7th St, Bloomington -> (IND) Indianapolis
-              Airport
-            </p>
-            <p>Fare charge: 35$</p>
-          </TimelineItem>
-          <TimelineItem
-            key="002"
-            dateText="11/03/2019 – 4:30 Hrs"
-            dateInnerStyle={{ background: "#61b8ff" }}
-            bodyContainerStyle={{
-              background: "#eeeeee",
-              padding: "10px",
-              borderRadius: "8px",
-              boxShadow: "0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2)"
-            }}
-          >
-            <h5>Flight - Southwest Airlines</h5>
-            <p>(IND) Indianapolis -> (JFK) NewYork</p>
-            <p>Fare charge: 200$</p>
-          </TimelineItem>
-          <TimelineItem
-            key="003"
-            dateText="11/03/2019 – 5:45 Hrs"
-            dateInnerStyle={{ background: "#61b8ff" }}
-            bodyContainerStyle={{
-              background: "#eeeeee",
-              padding: "10px",
-              borderRadius: "8px",
-              boxShadow: "0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2)"
-            }}
-          >
-            <h5>Lyft</h5>
-            <p>
-              Ride from (JFK) John F. Kennedy Airport -> Stony Brook University
-            </p>
-            <p>Fare charge 50$</p>
-          </TimelineItem>
-        </Timeline>
+        <React.Fragment>
+          <Timeline lineColor={"#ddd"}>
+            <TimelineItem
+              key="001"
+              dateText={val.cheap_origin_cab_time}
+              dateInnerStyle={{ background: "#61b8ff" }}
+              bodyContainerStyle={{
+                background: "#eeeeee",
+                padding: "10px",
+                borderRadius: "8px",
+                boxShadow: "0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2)"
+              }}
+            >
+              <h5>{val.cheap_origin_cab}</h5>
+              <p>
+                Ride from {val.origin} -> {val.origin_cab_endpoint}
+              </p>
+              <p>Fare charge: 35$</p>
+            </TimelineItem>
+            <TimelineItem
+              key="002"
+              dateText={val.cheap_flight_time}
+              dateInnerStyle={{ background: "#61b8ff" }}
+              bodyContainerStyle={{
+                background: "#eeeeee",
+                padding: "10px",
+                borderRadius: "8px",
+                boxShadow: "0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2)"
+              }}
+            >
+              <h5>Flight - {val.cheap_flight}</h5>
+              <p>
+                {val.origin_cab_endpoint} -> {val.destination_cab_startpoint}
+              </p>
+              <p>Fare charge: 200$</p>
+            </TimelineItem>
+            <TimelineItem
+              key="003"
+              dateText={val.cheap_destination_cab_time}
+              dateInnerStyle={{ background: "#61b8ff" }}
+              bodyContainerStyle={{
+                background: "#eeeeee",
+                padding: "10px",
+                borderRadius: "8px",
+                boxShadow: "0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2)"
+              }}
+            >
+              <h5>{val.cheap_destination_cab}</h5>
+              <p>
+                Ride from {val.destination_cab_startpoint} -> {val.destination}
+              </p>
+              <p>Fare charge 50$</p>
+            </TimelineItem>
+          </Timeline>
+          <hr />
+          <div className="display-result">
+            {this.state.remaining_results.map(n => {
+              return <ResultCard value={n} />;
+            })}
+          </div>
+        </React.Fragment>
       );
     }
-    return <div>{renderComponent}</div>;
+    return (
+      <div>
+        <div>{renderComponent}</div>
+      </div>
+    );
   }
 }
