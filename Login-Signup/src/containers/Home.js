@@ -10,6 +10,7 @@ export default class Home extends Component {
       origin: "",
       destination: "",
       date: "",
+      search_id: moment(),
       cheapest: { cab_origin: "", cab_destination: "", flight: "" },
       remaining_results: [
         { cab_origin: "", cab_destination: "", flight: "" },
