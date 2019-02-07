@@ -19,4 +19,8 @@ public interface AirportRepository  extends Repository<AirportIndex,String>{
 	@Query("select longitude from AirportIndex where iata = ?1")
 	Double findByLongitude(String iata);
 
+	
+	@Query("select airport from AirportIndex where iata = ?1")
+	String findByAirport(String name);
+
 }

@@ -13,8 +13,15 @@ public class ResponseVO {
 	private Double endLongitude;
 	private ResponseBody cabDestination;
 	private String searchId;
+	private String message;
 	
 	
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
 	public String getSearchId() {
 		return searchId;
 	}

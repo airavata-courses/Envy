@@ -35,8 +35,8 @@ public class RentalCarController {
 	public void getCarRideRequests(@RequestParam(value="from", defaultValue="World") String from,@RequestParam(value="to", defaultValue="World") String to) throws RestClientException, UnsupportedEncodingException {
 		System.out.println("In here");
 		
-		double[] start_location = locationService.findLocation("Indiana");
-		double[] end_location =locationService.findLocation("NewYork");
+		Double[] start_location = locationService.findLocation("Indiana");
+		Double[] end_location =locationService.findLocation("NewYork");
 		double start_lat = start_location[0];
 		double start_lng = start_location[1];
 		

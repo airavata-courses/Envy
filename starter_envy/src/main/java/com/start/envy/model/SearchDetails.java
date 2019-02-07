@@ -46,10 +46,10 @@ public class SearchDetails implements Serializable{
 	private String date;
 	@Column(name="search_Id")
 	private String searchId;
-	@Column(name="carSourcePrice")
+	@Column(name="car_source_price")
 	
 	private Double carSourcePrice;
-	@Column(name="carDestinationPrice")
+	@Column(name="car_destination_price")
 	private Double carDestinationPrice;
 	@Column(name="flight_Price")
 	private Double flightPrice;

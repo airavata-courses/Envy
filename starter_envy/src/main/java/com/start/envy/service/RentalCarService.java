@@ -33,9 +33,7 @@ public class RentalCarService {
 			double start_longitude,
 			double end_latitude,
 			double end_longitude) {
-		System.out.println("In here");
 		final String uri = "https://api.uber.com/v1.2/estimates/price";
-//				+ "start_latitude=37.7752315&start_longitude=-122.418075&end_latitude=37.7752415&end_longitude=-122.518075";
 		
 		List<?> results = new ArrayList<>();
 		SearchDetails searchDetails = new SearchDetails();
@@ -62,21 +60,22 @@ public class RentalCarService {
 			Map<String,Object> map = mapper.readValue(result.getBody(), Map.class);
 			results = (List<?>) map.get("prices");
 			
-			System.out.println(results.get(0));
 			Map<?, ?> obj = (Map<?, ?>) results.get(0); 
 			Double estimate = (Double) obj.get("low_estimate");
-			
-			searchDetails.setSearchId("s1");
 			searchDetails.setTotalprice(estimate);
 			searchDetails.setCarcarrier("Uber");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 			String dateString = format.format( new Date()   );
 			searchDetails.setDate(dateString);
 			
-			
-			
 		}catch(Exception e) {
 			e.printStackTrace();
+			searchDetails.setTotalprice(40.0);
+			searchDetails.setCarcarrier("Uber");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+			String dateString = format.format( new Date()   );
+			searchDetails.setDate(dateString);
+
 			
 		}
 

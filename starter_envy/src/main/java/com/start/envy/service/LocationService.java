@@ -42,14 +42,10 @@ public class LocationService {
    } 
     
     
-    public double[] findLocation(String address) throws RestClientException, UnsupportedEncodingException { 
+    public Double[] findLocation(String address) throws RestClientException, UnsupportedEncodingException { 
     	RestTemplate restTemplate = new RestTemplate();
-    	
-    	System.out.println("In here!!");
-        Map<?, ?> obj = restTemplate.getForObject(GOOGLE_MAPS_API_ENDPOINT, Map.class,encode(address, "UTF-8")); 
-        System.out.println(obj);
- 
-        // check the response status 
+    	Map<?, ?> obj = restTemplate.getForObject(GOOGLE_MAPS_API_ENDPOINT, Map.class,encode(address, "UTF-8")); 
+               // check the response status 
         String status = (String) obj.get("status"); 
         if (!status.equals(STATUS_OK)) { 
             throw new RuntimeException(buildMessage(status)); 
@@ -60,9 +56,10 @@ public class LocationService {
         Map<?, ?> geometry = (Map<?, ?>) result.get("geometry"); 
         Map<?, ?> location = (Map<?, ?>) geometry.get("location"); 
         
-        System.out.println(location.get("lat"));
-        System.out.println(location.get("lng"));
-        return new double[]{ 
+        if(location.get("lat") == null || location.get("lng") == null) {
+        	return null;
+        }
+        return new Double[]{ 
                 (Double) location.get("lat"), 
                 (Double) location.get("lng") 
                 
