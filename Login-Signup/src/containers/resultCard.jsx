@@ -22,12 +22,12 @@ export default class resultCard extends Component {
               <p className="diplome">{disp.cab_origin}</p>
               <span className="point" />
               <p className="description">
-                Cab start time {disp.cab_time_origin} | Fare charge{" "}
-                {disp.cab_fare_origin}
+                Cab start time {disp.cab_origin_time} | Fare charge{" "}
+                {disp.cab_origin_fare}$
               </p>
             </li>
             <li>
-              <p className="diplome">{disp.flight}</p>
+              <p className="diplome">{disp.flight} Airlines</p>
               <span className="point" />
               <p className="description">
                 Flight departure time {disp.flight_time}| Fare charge: 200$
@@ -37,8 +37,8 @@ export default class resultCard extends Component {
               <p className="diplome">{disp.cab_destination}</p>
               <span className="point" />
               <p className="description">
-                Cab start time {disp.cab_destination_time} | Fare charge
-                {disp.cab_destination_fare}
+                Cab start time {disp.cab_destination_time} | Fare charge{" "}
+                {disp.cab_destination_fare}$
               </p>
             </li>
           </ol>

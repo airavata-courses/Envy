@@ -23,9 +23,9 @@ export default class DisplaySearchResults extends Component {
     };
   }
   componentWillMount() {
-    const url = "http://localhost:3000/test";
+    const url = "http://127.0.0.1:8000/getiternary/?search_id=121317";
     let data = {
-      searchid: this.state.searchid
+      search_id: this.state.searchid
     };
     fetch(url, {
       method: "get",
@@ -35,6 +35,7 @@ export default class DisplaySearchResults extends Component {
       }
     })
       .then(function(response) {
+      console.log(JSON.stringify(response,null, 4), response.length)
         return response.json();
       })
       .then(data => {
