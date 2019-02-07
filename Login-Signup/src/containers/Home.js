@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Home.css";
 import NotFound from "./NotFound";
-
+import moment from "moment";
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -26,49 +26,47 @@ export default class Home extends Component {
     });
   };
   validateForm() {
-    return (
-      this.state.origin.length > 0 &&
-      this.state.destination.length > 0 &&
-      this.state.date.length === 5 &&
-      this.state.date.includes("-") &&
-      this.state.date[0] + this.state.date[1] > 6 &&
-      this.state.date[3] + this.state.date[4] >= 2
-    );
+    return this.state.origin.length > 0 && this.state.destination.length > 0;
   }
   handleSubmit = event => {
-    const url = "http://localhost:9200/getAirport";
-    let data = {
-      origin: this.state.origin,
-      destination: this.state.destination,
-      date: this.state.date
-    };
-    fetch(url, {
-      method: "get",
-      data: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        if (data.success === true) {
-          this.props.history.push({
-            pathname: "/display-results",
-            authorize: { searchid: data.status.searchid }
-          });
-          //   console.log("user has signed in");
+    var date = moment(this.state.date);
+    if (!date.isValid()) {
+      alert("Date is not valid");
+    } else {
+      const url = "http://localhost:9200/getAirport";
+      let data = {
+        origin: this.state.origin,
+        destination: this.state.destination,
+        date: this.state.date
+      };
+      fetch(url, {
+        method: "get",
+        data: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
         }
       })
-      .catch(error => console.error("Error:", error));
-    event.preventDefault();
+        .then(function(response) {
+          return response.json();
+        })
+        .then(data => {
+          console.log(data);
+          if (data.success === true) {
+            this.props.history.push({
+              pathname: "/display-results",
+              authorize: { searchid: data.status.searchid }
+            });
+            //   console.log("user has signed in");
+          }
+        })
+        .catch(error => console.error("Error:", error));
+      event.preventDefault();
+    }
   };
 
   render() {
     let renderComponent = <NotFound />;
-    if (this.props.isAuthenticated !== false) {
+    if (this.props.isAuthenticated === false) {
       renderComponent = (
         <div className="classGridHome">
           <div className="cardl contain grey lighten-3">
@@ -133,7 +131,7 @@ export default class Home extends Component {
                         onChange={this.handleChange}
                       />
                       <label className="deactive" htmlFor="date">
-                        DD-MM
+                        YYYY-MM-DD
                       </label>
                     </div>
                   </div>
