@@ -37,7 +37,8 @@ export default class Home extends Component {
       let data = {
         origin: this.state.origin,
         destination: this.state.destination,
-        date: this.state.date
+        date: this.state.date,
+        search_di: moment()
       };
       fetch(url, {
         method: "get",
