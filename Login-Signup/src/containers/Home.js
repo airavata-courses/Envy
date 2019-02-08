@@ -34,16 +34,18 @@ export default class Home extends Component {
     if (!date.isValid()) {
       alert("Date is not valid");
     } else {
-      const url = "http://localhost:9200/getAirport";
-      let data = {
-        origin: this.state.origin,
-        destination: this.state.destination,
-        date: this.state.date,
-        search_di: moment()
-      };
+      const url =
+        "http://localhost:9200/getAirport?origin=" +
+        this.state.origin +
+        "&destination=" +
+        this.state.destination +
+        "&date=" +
+        this.state.date +
+        "&search_id=" +
+        moment();
+      console.log("url", url);
       fetch(url, {
         method: "get",
-        data: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json"
         }
@@ -56,7 +58,7 @@ export default class Home extends Component {
           if (data.success === true) {
             this.props.history.push({
               pathname: "/display-results",
-              authorize: { searchid: data.status.searchid }
+              authorize: { searchid: data.searchId }
             });
             //   console.log("user has signed in");
           }
@@ -68,7 +70,7 @@ export default class Home extends Component {
 
   render() {
     let renderComponent = <NotFound />;
-    if (this.props.isAuthenticated === false) {
+    if (this.props.isAuthenticated !== false) {
       renderComponent = (
         <div className="classGridHome">
           <div className="cardl contain grey lighten-3">

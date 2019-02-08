@@ -48,6 +48,7 @@ export default class Signup extends Component {
         this.setState({ error: data.status.error });
         if (data.status.error === "false") {
           console.log("user has signed in");
+          this.props.userHasAuthenticated(true);
           this.props.history.push({
             pathname: "/home",
             authorize: { authorize: this.state.error }

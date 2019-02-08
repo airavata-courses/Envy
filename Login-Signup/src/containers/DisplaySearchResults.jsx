@@ -8,7 +8,7 @@ export default class DisplaySearchResults extends Component {
     super(props);
     const v = props.location.authorize;
     this.state = {
-      searchid: "",
+      searchid: v.searchid,
       origin: "",
       destination: "",
       origin_cab_endpoint: "",
@@ -22,10 +22,12 @@ export default class DisplaySearchResults extends Component {
       remaining_results: [0]
     };
   }
+
   componentWillMount() {
-    const url = "http://localhost:3000/test";
+    const url =
+      "http://127.0.0.1:8000/getiternary/?search_id=" + this.state.searchid;
     let data = {
-      searchid: this.state.searchid
+      search_id: this.state.searchid
     };
     fetch(url, {
       method: "get",
@@ -35,6 +37,7 @@ export default class DisplaySearchResults extends Component {
       }
     })
       .then(function(response) {
+        console.log(JSON.stringify(response, null, 4), response.length);
         return response.json();
       })
       .then(data => {
@@ -46,11 +49,14 @@ export default class DisplaySearchResults extends Component {
             destination: t.destination,
             origin: t.origin,
             cheap_destination_cab: tc.cab_destination,
+            cheap_destination_cab_fare: tc.cab_destination_fare,
             cheap_origin_cab: tc.cab_origin,
-            cheap_flight: tc.cheap_flight,
+            cheap_flight: tc.flight,
+            cheap_total_fare: tc.total_price,
             cheap_flight_time: tc.flight_time,
             cheap_destination_cab_time: tc.cab_destination_time,
             cheap_origin_cab_time: tc.cab_origin_time,
+            cheap_origin_cab_fare: tc.cab_origin_fare,
             destination_cab_startpoint: tc.cab_destination_startpoint,
             origin_cab_endpoint: tc.cab_origin_endpoint,
             remaining_results: t.remaining_results
@@ -61,7 +67,7 @@ export default class DisplaySearchResults extends Component {
   }
   render() {
     let renderComponent = <NotFound />;
-    if (this.props.isAuthenticated === false) {
+    if (this.props.isAuthenticated !== false) {
       const val = this.state;
       renderComponent = (
         <React.Fragment>
@@ -81,7 +87,7 @@ export default class DisplaySearchResults extends Component {
               <p>
                 Ride from {val.origin} -> {val.origin_cab_endpoint}
               </p>
-              <p>Fare charge: 35$</p>
+              <p>Fare charge: {val.cheap_origin_cab_fare}$</p>
             </TimelineItem>
             <TimelineItem
               key="002"
@@ -98,7 +104,13 @@ export default class DisplaySearchResults extends Component {
               <p>
                 {val.origin_cab_endpoint} -> {val.destination_cab_startpoint}
               </p>
-              <p>Fare charge: 200$</p>
+              <p>
+                Fare charge:{" "}
+                {val.cheap_total_fare -
+                  val.cheap_origin_cab_fare -
+                  val.cheap_destination_cab_fare}
+                $
+              </p>
             </TimelineItem>
             <TimelineItem
               key="003"
@@ -115,7 +127,7 @@ export default class DisplaySearchResults extends Component {
               <p>
                 Ride from {val.destination_cab_startpoint} -> {val.destination}
               </p>
-              <p>Fare charge 50$</p>
+              <p>Fare charge {val.cheap_destination_cab_fare}$</p>
             </TimelineItem>
           </Timeline>
           <hr />
