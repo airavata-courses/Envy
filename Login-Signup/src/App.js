@@ -21,7 +21,7 @@ class App extends Component {
   handleLogout = event => {
     this.userHasAuthenticated(false);
     this.props.history.push({
-      pathname: "/login"
+      pathname: "/"
     });
   };
 
