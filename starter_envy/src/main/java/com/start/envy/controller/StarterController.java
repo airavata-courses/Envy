@@ -191,7 +191,7 @@ public class StarterController {
 						
 						for(int i=0;i<CarriersList.size();i++) {
 							Map<?, ?> c =  (Map<?, ?>)CarriersList.get(i);
-							carriercompany.put(Integer.toString((int) c.get("CarrierId")),c.get("Name").toString());
+							carriercompany.put(Integer.toString((Integer) c.get("CarrierId")),c.get("Name").toString());
 						}
 
 						for(int k=0;k<results.size();k++) {

@@ -66,8 +66,8 @@ public class ClosestAirportService {
 	    	Map<?,?> temp = (Map<?,?>) output.get(i);
 	    	String name = (String) temp.get("code");
 	    	 Map<?, ?> location = (Map<?, ?>) temp.get("location"); 
-	    	double latitude =  (double) location.get("latitude");
-	    	double longitude =  (double) location.get("longitude");
+	    	Double latitude =  (Double) location.get("latitude");
+	    	Double longitude =  (Double) location.get("longitude");
 	    	double tempdistance = distance(lat, lng, latitude, longitude);
 	    	finalResult += name+",";
 	    }
