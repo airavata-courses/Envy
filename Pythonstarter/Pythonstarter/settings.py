@@ -81,10 +81,10 @@ CORS_ORIGIN_ALLOW_ALL = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'edohrrik',
-        'USER': 'edohrrik',
-        'PASSWORD': '2j8SiFKXECcvC5EnJpXpaUzo6fR1DqsN',
-        'HOST': 'pellefant.db.elephantsql.com',
+        'NAME': 'api',
+        'USER': 'me',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

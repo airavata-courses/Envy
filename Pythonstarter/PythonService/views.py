@@ -39,6 +39,7 @@ def pretty_json(partjson,totaljson):
 
 		tempresult['flight'] = temp['flight_carrier']
 		tempresult['flight_time']= temp['date']
+		tempresult['total_price'] = temp['total_price']
 		remaining_results.append(tempresult)
 
 	for i in partjson:
@@ -60,6 +61,7 @@ def pretty_json(partjson,totaljson):
 
 		tempresult['flight'] = temp['flight_carrier']
 		tempresult['flight_time']= temp['date']
+		tempresult['total_price'] = temp['total_price']
 		initial['cheapest'] = tempresult
 		initial['remaining_results']= remaining_results
 
