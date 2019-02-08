@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Timeline, TimelineItem } from "vertical-timeline-component-for-react";
-import NotFound from "./NotFound";
 import ResultCard from "./resultCard";
 
 export default class DisplaySearchResults extends Component {
@@ -42,12 +41,8 @@ export default class DisplaySearchResults extends Component {
       .catch(error => console.error("Error:", error));
   }
   render() {
-    let renderComponent = <NotFound />;
-    if (this.props.isAuthenticated !== false && this.state.isLoading) {
-      const t = this.state.data.status;
-      const tc = t.cheapest;
-      console.log("data", this.setValue());
-      const val = this.state;
+    if (this.props.isAuthenticated === false && !this.state.isLoading) {
+      alert("Please go to localhost:3001/");
     }
     return (
       this.state.isLoading && (

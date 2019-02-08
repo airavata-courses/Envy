@@ -61,6 +61,8 @@ export default class Home extends Component {
               authorize: { searchid: data.searchId }
             });
             //   console.log("user has signed in");
+          } else {
+            alert(data.message);
           }
         })
         .catch(error => console.error("Error:", error));
