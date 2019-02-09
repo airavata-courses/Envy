@@ -14,8 +14,15 @@ public class ResponseVO {
 	private ResponseBody cabDestination;
 	private String searchId;
 	private String message;
+	private String date;
 	
 	
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public String getMessage() {
 		return message;
 	}

@@ -163,6 +163,11 @@ public class StarterController {
 					}
 					ResponseBody rb = new ResponseBody();
 					ObjectMapper mapper = new ObjectMapper();
+					if(from.equals(to)) {
+						responseVO.setSuccess(false);
+						responseVO.setMessage("Please change location.");
+						return responseVO;
+					}
 					if(flights !=null) {
 						map = mapper.readValue(flights.getBody(), Map.class);
 						results = (List<?>) map.get("Quotes");
@@ -180,6 +185,7 @@ public class StarterController {
 						rb.setEndcodes(from + "->" + to);
 						QuotesArray.add(rb);
 					}else {
+						
 						List CarriersList =(List<?>)  map.get("Carriers");
 						List Places = (List<?>)map.get("Places");
 						for(int i=0;i<Places.size();i++) {
@@ -222,10 +228,11 @@ public class StarterController {
 				}
 			}
 			System.out.println("Flights found...");
-			ResponseVO reVO = new ResponseVO();
+			responseVO = new ResponseVO();
 			responseVO.setSearchId(searchId);
 			responseVO.setSuccess(true);
 			responseVO.setMessage("Success");
+			responseVO.setDate(date);
 
 			return responseVO;
 
