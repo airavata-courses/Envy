@@ -14,16 +14,6 @@ var verifyUser = (username, password, response) => {
     [username, password],
     (error, results) => {
       console.log("login", results);
-      if (error) {
-        response.status(400).json({
-          status: {
-            type: "failure",
-            message: "Authenticated",
-            code: "200",
-            error: "true"
-          }
-        });
-      }
       success = results.rowCount;
       console.log("Login request", success);
       if (success) {
@@ -33,6 +23,15 @@ var verifyUser = (username, password, response) => {
             message: "Authenticated",
             code: "200",
             error: "false"
+          }
+        });
+      } else {
+        response.status(400).json({
+          status: {
+            type: "failure",
+            message: "Incorrect credentials",
+            code: "400",
+            error: "true"
           }
         });
       }
