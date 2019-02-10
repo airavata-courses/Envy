@@ -27,7 +27,11 @@ export default class Home extends Component {
     });
   };
   validateForm() {
-    return this.state.origin.length > 0 && this.state.destination.length > 0;
+    return (
+      this.state.origin.length > 0 &&
+      this.state.destination.length > 0 &&
+      this.state.origin !== this.state.destination
+    );
   }
   handleSubmit = event => {
     var date = moment(this.state.date);

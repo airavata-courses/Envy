@@ -53,6 +53,9 @@ export default class Signup extends Component {
             pathname: "/home",
             authorize: { authorize: this.state.error }
           });
+        } else {
+          console.log("Username already taken");
+          alert("Please choose another email");
         }
       })
       .catch(error => console.error("Error:", error));

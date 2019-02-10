@@ -49,7 +49,7 @@ export default class Login extends Component {
             authorize: { authorize: this.state.error }
           });
         } else {
-          console.log("Invalid Credemtials");
+          console.log("Invalid credentials");
           this.props.userHasAuthenticated(false);
           alert("Invalid Credentials");
           return (
