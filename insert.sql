@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS airport_index;
 create table airport_index(airport text, latitude double precision, longitude double precision, iata text, primary key(latitude, longitude));
 
 DROP TABLE IF EXISTS search_details;
-create table search_details(id serial primary key, car_carrier text, flight_carrier text, total_price double precision,car_source text, car_destination text, flight_source text, flight_destination text, date text, search_id text, carSourcePrice double precision, carDestinationPrice double precision);
+create table search_details(id serial primary key, car_carrier text, flight_carrier text, total_price double precision,car_source text, car_destination text, flight_source text, flight_destination text, date text, search_id text, car_source_price double precision, car_destination_price double precision);
 
 GRANT ALL ON airport_index TO me;
 GRANT ALL ON user_travel TO me;
