@@ -18,7 +18,7 @@ export default class DisplaySearchResults extends Component {
   }
   componentWillMount() {
     const url =
-      "http://127.0.0.1:8000/getiternary/?search_id=" + this.state.searchid;
+      "http://149.165.157.247:8000/getiternary/?search_id=" + this.state.searchid;
     let data = {
       search_id: this.state.searchid
     };

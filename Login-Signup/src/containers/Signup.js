@@ -32,7 +32,7 @@ export default class Signup extends Component {
     event.preventDefault();
 
     this.setState({ isLoading: true });
-    const url = "http://localhost:3000/signup";
+    const url = "http://149.165.157.247:3000/signup";
     let data = { username: this.state.email, password: this.state.password };
     fetch(url, {
       method: "POST",

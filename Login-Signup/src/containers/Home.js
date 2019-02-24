@@ -39,7 +39,7 @@ export default class Home extends Component {
       alert("Date is not valid");
     } else {
       const url =
-        "http://localhost:9200/getAirport?origin=" +
+        "http://149.165.157.247:9200/getAirport?origin=" +
         this.state.origin +
         "&destination=" +
         this.state.destination +
