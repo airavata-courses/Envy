@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const Pool = require("pg").Pool;
 const pool = new Pool({
   user: "me",
@@ -10,11 +11,12 @@ const pool = new Pool({
 var verifyUser = (username, password, response) => {
   var success = 0;
   pool.query(
-    "SELECT * FROM user_travel WHERE email=$1 and password=$2",
-    [username, password],
+    "SELECT password FROM user_travel WHERE email=$1",
+    [username],
     (error, results) => {
-      console.log("login", results);
-      success = results.rowCount;
+      if(results.rowCount > 0 && bcrypt.compareSync(password, results.rows[0].password)) {
+      	success = 1;
+      }
       console.log("Login request", success);
       if (success) {
         response.status(200).json({
@@ -47,9 +49,10 @@ const authorizeUser = (request, response) => {
 
 const addUser = (request, response) => {
   const { username, password } = request.body;
+	let hash = bcrypt.hashSync(password, 10);
   pool.query(
     "INSERT INTO user_travel (email, password, dob) VALUES ($1, $2, '01-01-1996')",
-    [username, password],
+    [username, hash],
     (error, results) => {
       if (error) {
         response.status(400).json({
