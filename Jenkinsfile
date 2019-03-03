@@ -6,6 +6,7 @@ pipeline {
             steps {
                 dir("starter_envy") {
                     sh 'pwd'
+                    sh 'ssh ubuntu@149.165.169.49 rm -rf /home/ubuntu/Envy/'
                     sh 'sudo mvn clean'
                     sh 'sudo mvn install'
                 }
