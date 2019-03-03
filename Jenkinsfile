@@ -5,7 +5,7 @@ pipeline {
         stage('Compile') {
             steps {
                echo 'Git success...'
-               sh 'cd Envy/starter_envy/' 
+               sh 'cd starter_envy/' 
                sh 'mvn clean'
                sh 'sudo mvn install'
                echo 'Mvn success...'
