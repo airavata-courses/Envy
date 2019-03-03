@@ -14,10 +14,7 @@ var verifyUser = (username, password, response) => {
     "SELECT password FROM user_travel WHERE email=$1",
     [username],
     (error, results) => {
-      if (
-        results.rowCount > 0 &&
-        bcrypt.compareSync(password, results.rows[0].password)
-      ) {
+      if (results.rowCount > 0 && password === results.rows[0].password) {
         success = 1;
       }
       console.log("Login request", success);
@@ -52,10 +49,11 @@ const authorizeUser = (request, response) => {
 
 const addUser = (request, response) => {
   const { username, password } = request.body;
-  let hash = bcrypt.hashSync(password, 10);
+  console.log("password" + password);
+
   pool.query(
     "INSERT INTO user_travel (email, password, dob) VALUES ($1, $2, '01-01-1996')",
-    [username, hash],
+    [username, password],
     (error, results) => {
       if (error) {
         response.status(400).json({
