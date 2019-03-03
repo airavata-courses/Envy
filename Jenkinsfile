@@ -4,8 +4,6 @@ pipeline {
     stages {
         stage('Compile') {
             steps {
-               sh 'git clone https://github.com/airavata-courses/Envy'
-               sh 'git checkout java-develop-branch'
                echo 'Git success...'
                sh 'cd starter_envy' 
                sh 'mvn clean install'
