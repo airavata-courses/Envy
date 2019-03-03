@@ -82,6 +82,8 @@ app.post("/", (request, response) => {
     destination = request.body.destination;
     date = request.body.date;
     search_id = request.body.search_id;
+    console.log("search service");
+    console.log(origin + "," + destination + "," + date + "," + search_id);
     var options = {
       hostname: "JavaService.service.consul",
       port: 9200,
