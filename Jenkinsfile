@@ -20,8 +20,8 @@ pipeline {
             sh '''
                 kill -9 $(lsof -i:3000 -t) || echo $?
                 cd Login-Signup/
-                npm install
-                npm start
+                sudo npm install
+                sudo npm start
                 echo 'Deployed'
             '''    
             }
