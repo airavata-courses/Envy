@@ -4,11 +4,12 @@ pipeline {
     stages {
         stage('Compile') {
             steps {
-               echo 'Git success...'
-               sh 'cd starter_envy/' 
-               sh 'mvn clean'
-               sh 'sudo mvn install'
-               echo 'Mvn success...'
+                dir("starter_envy") {
+                    sh 'pwd'
+                    sh 'sudo mvn clean'
+                    sh 'sudo mvn install'
+                }
+               
             }
         }
         
