@@ -14,7 +14,10 @@ var verifyUser = (username, password, response) => {
     "SELECT * FROM user_travel WHERE email=$1 and password=$2",
     [username, password],
     (error, results) => {
-      console.log(results);
+      if (results.rowCount === 1) {
+        console.log(results);
+        success = 1;
+      }
       console.log("Login request ", success);
       if (success) {
         response.status(200).json({
