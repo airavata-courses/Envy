@@ -4,6 +4,7 @@ const app = express();
 const db = require("./queries");
 const port = 3000;
 var http = require("http");
+const request = require("request");
 
 var cors = require("cors");
 
@@ -84,29 +85,20 @@ app.post("/", (request, response) => {
     search_id = request.body.search_id;
     console.log("search service");
     console.log(origin + "," + destination + "," + date + "," + search_id);
-    var options = {
-      hostname: "JavaService.service.consul",
-      port: 9200,
-      path:
-        "/getAirport?origin=SFO&destination=MCO&date=2019-03-11&search_id=1231232",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
+    request.get(
+      {
+        url: "http://JavaService.service.consul:9200",
+        qs: {
+          origin: origin,
+          destination: destination,
+          date: date,
+          search_id: search_id
+        }
+      },
+      function(err, response, body) {
+        console.log(err, body);
       }
-    };
-    var req = http.request(options, function(res) {
-      console.log("Status: " + res.statusCode);
-      console.log("Headers: " + JSON.stringify(res.headers));
-      res.setEncoding("utf8");
-      res.on("data", function(body) {
-        console.log("Body: " + body);
-        response.end(body);
-      });
-    });
-    req.on("error", function(e) {
-      console.log("problem with request: " + e.message);
-    });
-    req.end();
+    );
   }
 });
 
