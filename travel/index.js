@@ -15,7 +15,7 @@ app.use(
     extended: true
   })
 );
-app.get("/", (request, response) => {
+app.post("/", (request, response) => {
   key = request.body.key;
   if (key === "login") {
     username = request.body.username;
