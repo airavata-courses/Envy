@@ -8,7 +8,7 @@ pipeline {
                     sudo rm -rf Envy
                     git clone https://github.com/airavata-courses/Envy.git
                     git checkout login-develop-branch
-                    cd Login-Signup/
+                    
                     echo 'started...'
                     echo 'finished...'
                 '''    
@@ -19,6 +19,7 @@ pipeline {
             steps {
             sh '''
                 kill -9 $(lsof -i:3000 -t) || echo $?
+                cd Login-Signup/
                 npm install
                 npm start
                 echo 'Deployed'
