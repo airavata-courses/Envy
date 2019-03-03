@@ -115,9 +115,9 @@ app.post("/", (request, response) => {
   } else if (key === "display") {
     search_id = request.body.search_id;
     var options = {
-      hostname: " http://149.165.157.242",
+      hostname: "pythonservice.service.consul",
       port: 8000,
-      path: "getiternary/?search_id=1231231",
+      path: "/getiternary/?search_id=" + search_id,
       method: "GET",
       headers: {
         "Content-Type": "application/json"
