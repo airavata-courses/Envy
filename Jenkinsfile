@@ -5,6 +5,7 @@ pipeline {
         stage('Prepare environment') {
             steps {		            
         		sh '''
+                    sudo rm -rf Envy
                     git clone https://github.com/airavata-courses/Envy.git
                     git checkout login-develop-branch
                     cd Login-Signup/
