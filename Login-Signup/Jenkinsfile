@@ -27,7 +27,7 @@ pipeline {
 
             sh '''
                 echo 'Installing...'
-                cd Envy/Login-Signup/
+                cd Login-Signup/
                 JENKINS_NODE_COOKIE=dontKillMe nohup sudo npm start
                 echo 'Build Success...'
             
