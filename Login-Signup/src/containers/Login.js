@@ -27,8 +27,12 @@ export default class Login extends Component {
   }
 
   handleSubmit = event => {
-    const url = "http://localhost:3000/login";
-    let data = { username: this.state.email, password: this.state.password };
+    const url = "http://149.165.170.100:3000/";
+    let data = {
+      key: "login",
+      username: this.state.email,
+      password: this.state.password
+    };
     fetch(url, {
       method: "POST",
       body: JSON.stringify(data),

@@ -17,11 +17,11 @@ export default class DisplaySearchResults extends Component {
     console.log(this.state.data);
   }
   componentWillMount() {
-    const url =
-      "http://127.0.0.1:8000/getiternary/?search_id=" + this.state.searchid;
     let data = {
+      key: "display",
       search_id: this.state.searchid
     };
+    const url = " http://149.165.170.100:3000/";
     fetch(url, {
       method: "get",
       data: JSON.stringify(data),

@@ -38,18 +38,18 @@ export default class Home extends Component {
     if (!date.isValid()) {
       alert("Date is not valid");
     } else {
-      const url =
-        "http://localhost:9200/getAirport?origin=" +
-        this.state.origin +
-        "&destination=" +
-        this.state.destination +
-        "&date=" +
-        this.state.date +
-        "&search_id=" +
-        moment();
+      let data = {
+        key: "search",
+        origin: this.state.origin,
+        destination: this.state.destination,
+        date: this.state.date,
+        search_id: moment()
+      };
+      const url = "http://149.165.170.100:3000/";
       console.log("url", url);
       fetch(url, {
-        method: "get",
+        method: "POST",
+        body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json"
         }
