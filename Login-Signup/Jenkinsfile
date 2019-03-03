@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Prepare environment') {
             steps {		            
-        		echo'de'
+        		echo 'de'
             }
         }
         
