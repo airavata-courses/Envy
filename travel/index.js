@@ -35,6 +35,7 @@ app.post("/", (request, response) => {
       res.setEncoding("utf8");
       res.on("data", function(body) {
         console.log("Body: " + body);
+        response.write(body);
       });
     });
     req.on("error", function(e) {
