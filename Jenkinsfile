@@ -18,7 +18,7 @@ pipeline {
         success{
             echo 'post success...'
             archiveArtifacts artifacts: 'starter_envy/target/starter_envy-0.0.1-SNAPSHOT.jar'
-            sh 'ssh -o StrictHostKeyChecking=no ubuntu@149.165.169.49 rm -rf /home/ubuntu/Envy/'
+            sh 'ssh ubuntu@149.165.169.49 rm -rf /home/ubuntu/Envy/'
             sh 'ssh -o StrictHostKeyChecking=no ubuntu@149.165.169.49 mkdir -p /home/ubuntu/Envy/'
             sh 'ssh -o StrictHostKeyChecking=no -r /var/lib/jenkins/workspace/pipelineJava/starter_envy/target/starter_envy-0.0.1-SNAPSHOT.jar ubuntu@149.165.169.49:/home/ubuntu/Envy/'
             sh 'ssh -o StrictHostKeyChecking=no ubuntu@149.165.169.49 killall -9 java || true'
