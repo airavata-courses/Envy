@@ -78,11 +78,12 @@ app.post("/", (request, response) => {
     });
     req.end(body);
   } else if (key === "search") {
-    origin = request.body.origin;
-    destination = request.body.destination;
+
+    origin = encodeURIComponent(request.body.origin);
+    destination = encodeURIComponent(request.body.destination);
     date = request.body.date;
     search_id = request.body.search_id;
-    var options = {
+	  var options = {
       hostname: "JavaService.service.consul",
       port: 9200,
       path:
@@ -99,6 +100,7 @@ app.post("/", (request, response) => {
         "Content-Type": "application/json"
       }
     };
+	  console.log(options.path);
     var req = http.request(options, function(res) {
       console.log("Status: " + res.statusCode);
       console.log("Headers: " + JSON.stringify(res.headers));
@@ -113,7 +115,7 @@ app.post("/", (request, response) => {
     });
     req.end();
   } else if (key === "display") {
-    search_id = request.body.search_id;
+    search_id = 12312319;
     var options = {
       hostname: "pythonservice.service.consul",
       port: 8000,
