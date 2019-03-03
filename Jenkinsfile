@@ -9,11 +9,6 @@ pipeline {
                     git checkout login-develop-branch
                     cd Login-Signup/
                     echo 'started...'
-                    kill -9 $(lsof -i:3001 -t) || echo $?
-                    sudo npm install
-                    sudo npm run build
-                    sudo npm install -g serve
-                    BUILD_ID=dontKillMe nohup serve -s build -l 3000 &
                     echo 'finished...'
                 '''    
              }
@@ -21,8 +16,12 @@ pipeline {
         
         stage('Deploy') {
             steps {
+            sh '''
+                kill -9 $(lsof -i:3000 -t) || echo $?
+                npm install
+                BUILD_ID=dontKillMe nohup npm start &
                 echo 'Deployed'
-
+            '''    
             }
         }
 
