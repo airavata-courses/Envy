@@ -35,7 +35,7 @@ app.post("/", (request, response) => {
       res.setEncoding("utf8");
       res.on("data", function(body) {
         console.log("Body: " + body);
-        response.write(body);
+        response.end(body);
       });
     });
     req.on("error", function(e) {
@@ -65,6 +65,7 @@ app.post("/", (request, response) => {
       res.setEncoding("utf8");
       res.on("data", function(body) {
         console.log("Body: " + body);
+        response.end(body);
       });
     });
     req.on("error", function(e) {
