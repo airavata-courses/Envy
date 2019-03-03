@@ -117,7 +117,7 @@ app.post("/", (request, response) => {
     search_id = request.body.search_id;
     var options = {
       hostname: "pythonservice.service.consul",
-      port: 9200,
+      port: 8000,
       path: "getiternary/?search_id=1231231",
       method: "GET",
       headers: {
