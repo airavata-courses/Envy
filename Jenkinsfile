@@ -20,7 +20,7 @@ pipeline {
             sh '''
                 kill -9 $(lsof -i:3000 -t) || echo $?
                 npm install
-                BUILD_ID=dontKillMe nohup npm start &
+                npm start
                 echo 'Deployed'
             '''    
             }
