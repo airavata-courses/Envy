@@ -78,6 +78,34 @@ app.post("/", (request, response) => {
       password: password
     });
     req.end(body);
+  } else if (key === "search") {
+    origin = request.body.origin;
+    destination = request.body.destination;
+    date = request.body.date;
+    search_id = request.body.search_id;
+    var options = {
+      hostname: "JavaService.service.consul",
+      port: 9200,
+      path:
+        "/getAirport?origin=SFO&destination=MCO&date=2019-03-11&search_id=1231232",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    var req = http.request(options, function(res) {
+      console.log("Status: " + res.statusCode);
+      console.log("Headers: " + JSON.stringify(res.headers));
+      res.setEncoding("utf8");
+      res.on("data", function(body) {
+        console.log("Body: " + body);
+        response.end(body);
+      });
+    });
+    req.on("error", function(e) {
+      console.log("problem with request: " + e.message);
+    });
+    req.end();
   }
 });
 
