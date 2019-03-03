@@ -15,12 +15,12 @@ app.use(
     extended: true
   })
 );
+
 app.post("/", (request, response) => {
   key = request.body.key;
   if (key === "login") {
     username = request.body.username;
     password = request.body.password;
-    console.log("login service " + username + " " + password);
     var options = {
       hostname: "NodeService.service.consul",
       port: 3000,
@@ -31,6 +31,8 @@ app.post("/", (request, response) => {
       }
     };
     var req = http.request(options, function(res) {
+      console.log("Status: " + res.statusCode);
+      console.log("Headers: " + JSON.stringify(res.headers));
       res.setEncoding("utf8");
       res.on("data", function(body) {
         console.log("Body: " + body);
@@ -59,6 +61,8 @@ app.post("/", (request, response) => {
       }
     };
     var req = http.request(options, function(res) {
+      console.log("Status: " + res.statusCode);
+      console.log("Headers: " + JSON.stringify(res.headers));
       res.setEncoding("utf8");
       res.on("data", function(body) {
         console.log("Body: " + body);
@@ -75,19 +79,6 @@ app.post("/", (request, response) => {
     });
     req.end(body);
   }
-  var req = http.request(options, function(res) {
-    console.log("Status: " + res.statusCode);
-    console.log("Headers: " + JSON.stringify(res.headers));
-    res.setEncoding("utf8");
-    res.on("data", function(body) {
-      console.log("Body: " + body);
-      response.end(body);
-    });
-  });
-  req.on("error", function(e) {
-    console.log("problem with request: " + e.message);
-  });
-  req.end();
 });
 
 app.post("/login", db.authorizeUser);
