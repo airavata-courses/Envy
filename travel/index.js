@@ -62,7 +62,6 @@ app.post("/", (request, response) => {
     };
     var req = http.request(options, function(res) {
       console.log("Status: " + res.statusCode);
-      console.log("Headers: " + JSON.stringify(res.headers));
       res.setEncoding("utf8");
       res.on("data", function(body) {
         console.log("Body: " + body);
@@ -116,7 +115,7 @@ app.post("/", (request, response) => {
   } else if (key === "display") {
     search_id = request.body.search_id;
     var options = {
-      hostname: "pythonservice.service.consul",
+      hostname: " http://149.165.157.242",
       port: 8000,
       path: "getiternary/?search_id=1231231",
       method: "GET",
@@ -126,7 +125,6 @@ app.post("/", (request, response) => {
     };
     var req = http.request(options, function(res) {
       console.log("Status: " + res.statusCode);
-      console.log("Headers: " + JSON.stringify(res.headers));
       res.setEncoding("utf8");
       res.on("data", function(body) {
         console.log("Body: " + body);
