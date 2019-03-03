@@ -87,7 +87,7 @@ app.post("/", (request, response) => {
     console.log(origin + "," + destination + "," + date + "," + search_id);
     request.get(
       {
-        url: "http://JavaService.service.consul:9200",
+        url: "JavaService.service.consul:9200",
         qs: {
           origin: origin,
           destination: destination,
