@@ -11,13 +11,11 @@ const pool = new Pool({
 var verifyUser = (username, password, response) => {
   var success = 0;
   pool.query(
-    "SELECT password FROM user_travel WHERE email=$1",
-    [username],
+    "SELECT * FROM user_travel WHERE email=$1 and password=$2",
+    [username, password],
     (error, results) => {
-      if (results.rowCount > 0 && password === results.rows[0].password) {
-        success = 1;
-      }
-      console.log("Login request", success);
+      console.log(results);
+      console.log("Login request ", success);
       if (success) {
         response.status(200).json({
           status: {
@@ -43,7 +41,7 @@ var verifyUser = (username, password, response) => {
 
 const authorizeUser = (request, response) => {
   const { username, password } = request.body;
-  //console.log(request.body.username);
+  console.log(request.body.username + " " + request.body.password);
   verifyUser(username, password, response);
 };
 
