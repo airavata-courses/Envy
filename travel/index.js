@@ -20,6 +20,7 @@ app.post("/", (request, response) => {
   if (key === "login") {
     username = request.body.username;
     password = request.body.password;
+    console.log("login service " + username + " " + password);
     var options = {
       hostname: "NodeService.service.consul",
       port: 3000,
