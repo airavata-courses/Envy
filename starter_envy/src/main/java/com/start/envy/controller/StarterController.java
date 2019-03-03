@@ -71,6 +71,13 @@ public class StarterController {
 	private SearchRepository searchRepository;
 
 
+	@RequestMapping("/health")
+	@CrossOrigin(origins = "http://localhost:3001")
+	public String gethealth(@RequestParam(value="origin", defaultValue="") String origin,@RequestParam(value="destination", defaultValue="World") String destination,
+			@RequestParam(value="date", defaultValue="") String date, @RequestParam(value="search_id", defaultValue="") String searchId) {
+	return "chal raha";
+	}
+
 	@RequestMapping("/getAirport")
 	@CrossOrigin(origins = "http://149.165.157.247:3001")
 	public ResponseVO getAirport(@RequestParam(value="origin", defaultValue="") String origin,@RequestParam(value="destination", defaultValue="World") String destination,
