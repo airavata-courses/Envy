@@ -6,15 +6,10 @@ pipeline {
             steps {
                 dir("starter_envy") {
                     sh 'pwd'
-                   
-                 //   sh 'sudo mvn clean'
-                 //  sh 'sudo mvn install'
+                    sh 'ssh ubuntu@149.165.169.49 rm -rf /home/ubuntu/Envy/'
+                      sh 'sudo mvn clean'
+                   sh 'sudo mvn install'
                     }
-                node{
-                    sshagent(credentials : ['c93fa819-2a67-4620-acc3-448dfa1ec7d9']) {
-                         sh 'ssh -o StrictHostKeyChecking=no ubuntu@149.165.169.49 rm -rf /home/ubuntu/Envy/'
-                    }
-                }
                 
 
                 }
@@ -22,7 +17,7 @@ pipeline {
             }
         }
         
-    
+   
     post {
         success{
             echo 'post success...'
