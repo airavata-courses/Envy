@@ -130,7 +130,7 @@ app.post("/", (request, response) => {
       res.setEncoding("utf8");
       res.on("data", function(body) {
         console.log("Data recieved from python service");
-        response.end(body);
+        response.end(JSON.stringify(body));
       });
     });
     req.on("error", function(e) {
