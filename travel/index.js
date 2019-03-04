@@ -18,6 +18,7 @@ app.use(
 
 app.post("/", (request, response) => {
   key = request.body.key;
+  console.log(request.body);
   if (key === "login") {
     username = request.body.username;
     password = request.body.password;
@@ -115,7 +116,9 @@ app.post("/", (request, response) => {
     });
     req.end();
   } else if (key === "display") {
-    search_id = 12312319;
+    search_id = request.body.search_id;
+	console.log("display");
+	  console.log("search_id",search_id);
     var options = {
       hostname: "pythonservice.service.consul",
       port: 8000,
