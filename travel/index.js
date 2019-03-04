@@ -129,8 +129,8 @@ app.post("/", (request, response) => {
       console.log("Status: " + res.statusCode);
       res.setEncoding("utf8");
       res.on("data", function(body) {
-        console.log("Data recieved from python service");
-        response.end(JSON.stringify(body));
+        console.log("Data recieved from python service"+body);
+        response.end(body);
       });
     });
     req.on("error", function(e) {
