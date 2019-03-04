@@ -17,19 +17,22 @@ export default class DisplaySearchResults extends Component {
     console.log(this.state.data);
   }
   componentWillMount() {
-    const url =
-      "http://127.0.0.1:8000/getiternary/?search_id=" + this.state.searchid;
+    console.log("Dsiplay results");
     let data = {
+      key: "display",
       search_id: this.state.searchid
     };
+    const url = "http://149.165.170.100:3000/";
+    console.log("url", url);
     fetch(url, {
-      method: "get",
-      data: JSON.stringify(data),
+      method: "POST",
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json"
       }
     })
       .then(function(response) {
+        console.log(response);
         return response.json();
       })
       .then(data => {
@@ -41,9 +44,6 @@ export default class DisplaySearchResults extends Component {
       .catch(error => console.error("Error:", error));
   }
   render() {
-    if (this.props.isAuthenticated === false && !this.state.isLoading) {
-      alert("Please go to localhost:3001/");
-    }
     return (
       this.state.isLoading && (
         <React.Fragment>

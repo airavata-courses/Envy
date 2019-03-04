@@ -33,7 +33,11 @@ export default class Signup extends Component {
 
     this.setState({ isLoading: true });
     const url = "http://localhost:3000/signup";
-    let data = { username: this.state.email, password: this.state.password };
+    let data = {
+      key: "signup",
+      username: this.state.email,
+      password: this.state.password
+    };
     fetch(url, {
       method: "POST",
       body: JSON.stringify(data),
