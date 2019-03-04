@@ -7,7 +7,7 @@ export default class DisplaySearchResults extends Component {
     super(props);
     const v = props.location.authorize;
     this.state = {
-      searchid: "2019-03-03T23:52:09.140Z",
+      searchid: v.searchid,
       remaining_results: [0],
       isLoading: false,
       data: ""
