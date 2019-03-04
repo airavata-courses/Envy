@@ -18,7 +18,6 @@ app.use(
 
 app.post("/", (request, response) => {
   key = request.body.key;
-  console.log(request.body);
   if (key === "login") {
     username = request.body.username;
     password = request.body.password;
@@ -33,10 +32,9 @@ app.post("/", (request, response) => {
     };
     var req = http.request(options, function(res) {
       console.log("Status: " + res.statusCode);
-      console.log("Headers: " + JSON.stringify(res.headers));
       res.setEncoding("utf8");
       res.on("data", function(body) {
-        console.log("Body: " + body);
+        console.log("Data recieved from node login service");
         response.end(body);
       });
     });
@@ -65,7 +63,7 @@ app.post("/", (request, response) => {
       console.log("Status: " + res.statusCode);
       res.setEncoding("utf8");
       res.on("data", function(body) {
-        console.log("Body: " + body);
+        console.log("Data recieved from node signup service");
         response.end(body);
       });
     });
@@ -79,12 +77,11 @@ app.post("/", (request, response) => {
     });
     req.end(body);
   } else if (key === "search") {
-
     origin = encodeURIComponent(request.body.origin);
     destination = encodeURIComponent(request.body.destination);
     date = request.body.date;
     search_id = request.body.search_id;
-	  var options = {
+    var options = {
       hostname: "JavaService.service.consul",
       port: 9200,
       path:
@@ -101,13 +98,13 @@ app.post("/", (request, response) => {
         "Content-Type": "application/json"
       }
     };
-	  console.log(options.path);
+    console.log(options.path);
     var req = http.request(options, function(res) {
       console.log("Status: " + res.statusCode);
       console.log("Headers: " + JSON.stringify(res.headers));
       res.setEncoding("utf8");
       res.on("data", function(body) {
-        console.log("Body: " + body);
+        console.log("Data recieved from java service");
         response.end(body);
       });
     });
@@ -117,8 +114,8 @@ app.post("/", (request, response) => {
     req.end();
   } else if (key === "display") {
     search_id = request.body.search_id;
-	console.log("display");
-	  console.log("search_id",search_id);
+    console.log("display");
+    console.log("search_id", search_id);
     var options = {
       hostname: "pythonservice.service.consul",
       port: 8000,
@@ -132,7 +129,7 @@ app.post("/", (request, response) => {
       console.log("Status: " + res.statusCode);
       res.setEncoding("utf8");
       res.on("data", function(body) {
-        console.log("Body: " + body);
+        console.log("Data recieved from python service");
         response.end(body);
       });
     });
