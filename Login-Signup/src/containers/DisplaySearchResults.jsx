@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Timeline, TimelineItem } from "vertical-timeline-component-for-react";
 import ResultCard from "./resultCard";
+import NotFound from "./NotFound";
 
 export default class DisplaySearchResults extends Component {
   constructor(props) {
@@ -44,8 +45,9 @@ export default class DisplaySearchResults extends Component {
       .catch(error => console.error("Error:", error));
   }
   render() {
-    return (
-      this.state.isLoading && (
+    let renderComponent = <NotFound />;
+    if (this.props.isAuthenticated !== false) {
+      renderComponent = this.state.isLoading && (
         <React.Fragment>
           <Timeline lineColor={"#ddd"}>
             <TimelineItem
@@ -122,12 +124,8 @@ export default class DisplaySearchResults extends Component {
             })}
           </div>
         </React.Fragment>
-      )
-      // this.state.remaining_results[0] && (
-      //   <div>
-      //     <div>{renderComponent}</div>
-      //   </div>
-      // )
-    );
+      );
+    }
+    return <div className="Home">{renderComponent}</div>;
   }
 }
