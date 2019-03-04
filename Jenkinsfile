@@ -5,10 +5,12 @@ pipeline {
         stage('Compile') {
             steps {
                 dir("starter_envy") {
+                    sshagent (credentials: ['c93fa819-2a67-4620-acc3-448dfa1ec7d9']) {
                     sh 'pwd'
-                    sh 'ssh ubuntu@149.165.169.49 rm -rf /home/ubuntu/Envy/'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@149.165.169.49 rm -rf /home/ubuntu/Envy/'
                     sh 'sudo mvn clean'
                     sh 'sudo mvn install'
+                    }
                 }
                
             }
