@@ -6,9 +6,7 @@ pipeline {
             steps {                 
                 sh '''
                     sudo rm -rf Envy
-                    git clone https://github.com/airavata-courses/Envy.git
-                    git checkout develop-release-branch
-                    git pull
+                    pwd
                     cd Login-Signup/
                     sudo npm install    
                     echo 'started...'
