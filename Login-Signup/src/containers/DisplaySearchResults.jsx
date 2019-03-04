@@ -7,7 +7,7 @@ export default class DisplaySearchResults extends Component {
     super(props);
     const v = props.location.authorize;
     this.state = {
-      searchid: v.searchid,
+      searchid: "2019-03-03T23:52:09.140Z",
       remaining_results: [0],
       isLoading: false,
       data: ""
@@ -17,19 +17,22 @@ export default class DisplaySearchResults extends Component {
     console.log(this.state.data);
   }
   componentWillMount() {
+    console.log("Dsiplay results");
     let data = {
       key: "display",
       search_id: this.state.searchid
     };
-    const url = " http://149.165.170.100:3000/";
+    const url = "http://149.165.170.100:3000/";
+    console.log("url", url);
     fetch(url, {
-      method: "get",
-      data: JSON.stringify(data),
+      method: "POST",
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json"
       }
     })
       .then(function(response) {
+        console.log(response);
         return response.json();
       })
       .then(data => {
@@ -41,9 +44,6 @@ export default class DisplaySearchResults extends Component {
       .catch(error => console.error("Error:", error));
   }
   render() {
-    if (this.props.isAuthenticated === false && !this.state.isLoading) {
-      alert("Please go to localhost:3001/");
-    }
     return (
       this.state.isLoading && (
         <React.Fragment>
