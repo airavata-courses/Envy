@@ -30,7 +30,7 @@ public class RentalCarController {
 	@Autowired 
     private  LocationService locationService;
 	
-
+//testing jenkins
 	@RequestMapping("/getRideRequestes")
 	public void getCarRideRequests(@RequestParam(value="from", defaultValue="World") String from,@RequestParam(value="to", defaultValue="World") String to) throws RestClientException, UnsupportedEncodingException {
 		System.out.println("In here");
