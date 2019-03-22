@@ -2,7 +2,7 @@
 import os
 import sys
 #import consul
-import requests
+#import requests
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Pythonstarter.settings")
