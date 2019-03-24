@@ -11,6 +11,11 @@
   display: flex;
 }
 
+.above-submit-search {
+  margin-left: 20.5em;
+  margin-top: -8px;
+}
+
 .row {
   margin-left: 10%;
   width: 70em;

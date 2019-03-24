@@ -8,7 +8,8 @@ export default class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      error: "true"
+      error: "true",
+      isLoading: 0
     };
   }
 
@@ -22,11 +23,8 @@ export default class Login extends Component {
     });
   };
 
-  displayAlert() {
-    return <Alert color="danger">This is a danger alert — check it out!</Alert>;
-  }
-
   handleSubmit = event => {
+    this.setState({ isLoading: 1 });
     const url = "http://149.165.170.100:3000/";
     let data = {
       key: "login",
@@ -52,13 +50,12 @@ export default class Login extends Component {
             pathname: "/home",
             authorize: { authorize: this.state.error }
           });
+          this.setState({ isLoading: 0 });
         } else {
           console.log("Invalid credentials");
           this.props.userHasAuthenticated(false);
           alert("Invalid Credentials");
-          return (
-            <Alert color="danger">This is a danger alert — check it out!</Alert>
-          );
+          this.setState({ isLoading: 0 });
         }
       })
       .catch(error => console.error("Error:", error));
@@ -66,6 +63,28 @@ export default class Login extends Component {
   };
 
   render() {
+    let button = null;
+    if (this.state.isLoading) {
+      button = (
+        <div className="above-submit">
+          <div className="preloader-wrapper small active">
+            <div className="spinner-layer spinner-green-only">
+              <div className="circle-clipper left">
+                <div className="circle" />
+              </div>
+              <div className="gap-patch">
+                <div className="circle" />
+              </div>
+              <div className="circle-clipper right">
+                <div className="circle" />
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      button = null;
+    }
     return (
       <div className="Login card grey lighten-3">
         <form onSubmit={this.handleSubmit}>
@@ -95,7 +114,7 @@ export default class Login extends Component {
               </label>
             </div>
           </div>
-
+          {button}
           <button
             className="btn btn-login waves-effect waves-light"
             type="submit"

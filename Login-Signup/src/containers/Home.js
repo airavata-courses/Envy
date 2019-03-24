@@ -18,7 +18,8 @@ export default class Home extends Component {
         { cab_origin: "", cab_destination: "", flight: "" },
         { cab_origin: "", cab_destination: "", flight: "" }
       ],
-      rental: ""
+      rental: "",
+      isLoading: 0
     };
   }
   handleChange = event => {
@@ -34,6 +35,7 @@ export default class Home extends Component {
     );
   }
   handleSubmit = event => {
+    this.setState({ isLoading: 1 });
     var date = moment(this.state.date);
     if (!date.isValid()) {
       alert("Date is not valid");
@@ -60,12 +62,14 @@ export default class Home extends Component {
         .then(data => {
           console.log(data);
           if (data.success === true) {
+            this.setState({ isLoading: 0 });
             this.props.history.push({
               pathname: "/display-results",
               authorize: { searchid: data.searchId }
             });
             //   console.log("user has signed in");
           } else {
+            this.setState({ isLoading: 0 });
             alert(data.message);
           }
         })
@@ -75,7 +79,27 @@ export default class Home extends Component {
   };
 
   render() {
+    let button = null;
     let renderComponent = <NotFound />;
+    if (this.state.isLoading) {
+      button = (
+        <div className="above-submit-search">
+          <div class="preloader-wrapper small active">
+            <div class="spinner-layer spinner-green-only">
+              <div class="circle-clipper left">
+                <div class="circle" />
+              </div>
+              <div class="gap-patch">
+                <div class="circle" />
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle" />
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
     if (this.props.isAuthenticated !== false) {
       renderComponent = (
         <div className="classGridHome">
@@ -136,16 +160,14 @@ export default class Home extends Component {
                     <div className="input-field col s6">
                       <input
                         id="date"
-                        type="text"
+                        type="date"
                         value={this.state.date}
                         onChange={this.handleChange}
                       />
-                      <label className="deactive" htmlFor="date">
-                        YYYY-MM-DD
-                      </label>
                     </div>
                   </div>
                 </div>
+                {button}
                 <button
                   className="btn waves-effect waves-light"
                   type="submit"
