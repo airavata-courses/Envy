@@ -28,7 +28,7 @@ export default class resultCard extends Component {
               <p />
               <Timeline.Item color="blue">
                 {disp.cab_origin}
-                {" " + disp.cab_origin_fare}
+                {" " + disp.cab_origin_fare+"$"}
               </Timeline.Item>
             </Timeline.Item>
           </div>
@@ -49,7 +49,8 @@ export default class resultCard extends Component {
             <Timeline.Item className="time-item" color="green">
               {disp.cab_destination_startpoint}
               <p />
-              <Timeline.Item color="blue">Lyft 35$</Timeline.Item>
+              <Timeline.Item color="blue">{disp.cab_destination}
+                {" " + disp.cab_destination_fare+"$"}</Timeline.Item>
             </Timeline.Item>
           </div>
           <div className="time-item">
