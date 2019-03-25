@@ -128,7 +128,7 @@ export default class Home extends Component {
                       onChange={this.handleChange}
                     />
                     <label className="deactive" htmlFor="destination">
-                      Destiation Address
+                      Destination Address
                     </label>
                   </div>
                 </div>
