@@ -19,10 +19,6 @@ export default class DisplaySearchResults extends Component {
   }
   componentWillMount() {
     console.log("Dsiplay results");
-    let data = {
-      key: "display",
-      search_id: this.state.searchid
-    };
     const url =
       " http://149.165.157.242:8000/getiternary/?search_id=" +
       this.state.searchid;
@@ -47,9 +43,12 @@ export default class DisplaySearchResults extends Component {
   }
   render() {
     let renderComponent = <NotFound />;
+
     if (this.props.isAuthenticated !== false) {
       renderComponent = this.state.isLoading && (
         <React.Fragment>
+          <h3>Cheapest Itinerary</h3>
+          <hr />
           <Timeline lineColor={"#ddd"}>
             <TimelineItem
               key="001"
@@ -118,10 +117,18 @@ export default class DisplaySearchResults extends Component {
               </p>
             </TimelineItem>
           </Timeline>
+          <h3>More Results</h3>
           <hr />
+
           <div className="display-result">
             {this.state.data.status.remaining_results.map(n => {
-              return <ResultCard value={n} />;
+              let props = {
+                data: n,
+                origin: this.state.data.status.origin,
+                destination: this.state.data.status.destination
+              };
+              console.log(props);
+              return <ResultCard value={props} />;
             })}
           </div>
         </React.Fragment>

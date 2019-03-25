@@ -6,8 +6,6 @@ body {
   color: #333;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("./containers/drop.png");
-  background-size: cover; /* or contain depending on what you want */
 }
 
 h1,

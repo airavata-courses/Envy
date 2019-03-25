@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Alert } from "reactstrap";
 import "./Login.css";
 
 export default class Login extends Component {

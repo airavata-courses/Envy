@@ -1,0 +1,23 @@
+.time {
+  padding: 56px;
+}
+
+.cardm {
+  transition: 0.3s;
+  margin-left: 3%;
+  margin-top: 10%;
+  width: 30%;
+  border-radius: 8px;
+}
+
+.time-item {
+  margin-top: -5%;
+}
+.contain-new {
+  padding-left: 3%;
+  margin-top: 5em;
+  display: inline-block;
+}
+.ant-timeline-item-tail {
+  border-left: 0;
+}
