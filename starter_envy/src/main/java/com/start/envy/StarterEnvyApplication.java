@@ -11,7 +11,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
 	
 	@EnableConfigurationProperties
         
