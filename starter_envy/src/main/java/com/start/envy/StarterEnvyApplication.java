@@ -14,7 +14,7 @@ import java.net.UnknownHostException;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 	
 	@EnableConfigurationProperties
-        @EnableDiscoveryClient
+        
 	@EnableAutoConfiguration
 	@SpringBootApplication
 	public class StarterEnvyApplication {
