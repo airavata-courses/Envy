@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+        name: envy-service
+spec:
+        selector:
+                app: envy
+        type: LoadBalancer
+        ports:
+                - name: envy-port
+                  port: 8080
+                  targetPort: 80 

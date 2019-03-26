@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uinode-deployment
+  labels:
+   app: ui-node        
+spec:
+  replicas: 1
+  selector:
+   matchLabels:
+    app: ui-node        
+  template:
+    metadata:
+      labels:
+        app: ui-node
+    spec:
+      containers:
+      - name: ui-node
+        image: varunmachingal92/ui-node:v7
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 30002
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ui-node
+spec:
+  type: NodePort
+  selector:
+   app: ui-node
+  ports:
+  - protocol: TCP
+    port: 30002
+    targetPort: 30001
+    nodePort: 30002
+

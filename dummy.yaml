@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: envy
+spec:
+  containers:
+    - name: ui-node
+      image: index.docker.io/varunmachingal92/varunmachingal92/ui-node:firsttry
+      imagePullPolicy: Always
+      command: [ "echo", "SUCCESS" ]
+    - name: java-node
+      image: index.docker.io/varunmachingal92/varunmachingal92/java-node:firsttry
+      imagePullPolicy: Always
+      command: [ "echo", "SUCCESS" ]
+    - name: python-node
+      image: index.docker.io/varunmachingal92/varunmachingal92/python-node:firsttry
+      imagePullPolicy: Always
+      command: [ "echo", "SUCCESS" ]
+    - name: backend-node
+      image: index.docker.io/varunmachingal92/varunmachingal92/backend-node:firsttry
+      imagePullPolicy: Always
+      command: [ "echo", "SUCCESS" ]
+  imagePullSecrets:
+    - name: myregistrykey
