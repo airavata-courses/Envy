@@ -27,7 +27,7 @@ export default class Login extends Component {
   }
 
   handleSubmit = event => {
-    const url = "http://149.165.170.100:3000/";
+    const url = "http://149.165.170.230:30005/";
     let data = {
       key: "login",
       username: this.state.email,
