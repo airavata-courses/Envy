@@ -1,3 +1,7 @@
-FROM ubuntu:18.04
-RUN apt-get upgrade && apt-get update && apt-get install -y nodejs && apt-get install -y npm && apt-get install -y git
-CMD git clone https://github.com/airavata-courses/Envy.git &&  cd Envy && git pull && git checkout develop-release-branch && cd travel && npm install && nodejs index.js
+FROM node:9.4
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]

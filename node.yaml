@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: ui-node
-        image: varunmachingal92/ui-node:v7
+        image: varunmachingal92/ui-node:v8
         imagePullPolicy: Always
         ports:
         - containerPort: 30002
