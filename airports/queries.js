@@ -87,7 +87,8 @@ const findAirports = (request, response) => {
           );
           if (temp < 200) {
             airports.push({
-              distance: temp,
+              latitude: rows["latitude"],
+              longitude: rows["longitude"],
               airport: rows["airport"],
               iata: rows["iata"]
             });
