@@ -66,52 +66,54 @@ const findAirports = (request, response) => {
           error: "true"
         }
       });
-    }
-    if (results.rowCount === 0) {
-      response.status(400).json({
-        status: {
-          type: "failure",
-          message: "No Nearest airport found",
-          code: "400",
-          error: "true"
-        }
-      });
-    }
-    for (i = 0; i < results.rowCount; i++) {
-      var rows = results.rows[i];
-      var temp = distance(
-        latitude,
-        longitude,
-        parseFloat(rows["latitude"]),
-        parseFloat(rows["longitude"])
-      );
-      if (temp < 200) {
-        airports.push({
-          distance: temp,
-          airport: rows["airport"],
-          iata: rows["iata"]
-        });
-      }
-    }
-    if (airports.length == 0) {
-      response.status(404).json({
-        status: {
-          type: "failure",
-          data: "No airports found in 200 mile radius",
-          code: "404",
-          error: "true"
-        }
-      });
     } else {
-      console.log("Found airports ", airports);
-      response.status(200).json({
-        status: {
-          type: "success",
-          data: airports,
-          code: "200",
-          error: "false"
+      if (results.rowCount === 0) {
+        response.status(400).json({
+          status: {
+            type: "failure",
+            message: "No Nearest airport found",
+            code: "400",
+            error: "true"
+          }
+        });
+      } else {
+        for (i = 0; i < results.rowCount; i++) {
+          var rows = results.rows[i];
+          var temp = distance(
+            latitude,
+            longitude,
+            parseFloat(rows["latitude"]),
+            parseFloat(rows["longitude"])
+          );
+          if (temp < 200) {
+            airports.push({
+              distance: temp,
+              airport: rows["airport"],
+              iata: rows["iata"]
+            });
+          }
         }
-      });
+        if (airports.length == 0) {
+          response.status(404).json({
+            status: {
+              type: "failure",
+              data: "No airports found in 200 mile radius",
+              code: "404",
+              error: "true"
+            }
+          });
+        } else {
+          console.log("Found airports ", airports);
+          response.status(200).json({
+            status: {
+              type: "success",
+              data: airports,
+              code: "200",
+              error: "false"
+            }
+          });
+        }
+      }
     }
   });
 };
