@@ -2,33 +2,20 @@ package com.start.envy.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "airport_index")
 public class AirportIndex implements Serializable{
 	
-	@Column(name="airport")
 	private String airport;
 	
 	
 	
-	@Column(name="latitude")
 	private double latitude;
 	
-
-	@Column(name="longitude")
 	private double longitude;
-	
-	@Id
-	@Column(name="iata")
 	private String iata;
 	
 
-	public AirportIndex(String airport, double latitude, double longitude, String iata) {
+	public AirportIndex() {
 		super();
 		this.airport = airport;
 		this.latitude = latitude;

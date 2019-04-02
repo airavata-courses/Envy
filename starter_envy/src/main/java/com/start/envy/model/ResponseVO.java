@@ -15,8 +15,15 @@ public class ResponseVO {
 	private String searchId;
 	private String message;
 	private String date;
+	private List<SearchDetails> sdList;
 	
 	
+	public List<SearchDetails> getSdList() {
+		return sdList;
+	}
+	public void setSdList(List<SearchDetails> sdList) {
+		this.sdList = sdList;
+	}
 	public String getDate() {
 		return date;
 	}

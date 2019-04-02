@@ -14,12 +14,8 @@ import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,22 +23,18 @@ import org.springframework.web.client.RestClientException;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.start.envy.model.AirportIndex;
+import com.start.envy.model.Location;
+import com.start.envy.model.ResponseBody;
 import com.start.envy.model.ResponseVO;
 import com.start.envy.model.SearchDetails;
-
-import com.start.envy.model.AirportIndex;
-import com.start.envy.model.Carriers;
-import com.start.envy.repo.AirportRepository;
-import com.start.envy.repo.SearchRepository;
 import com.start.envy.service.ClosestAirportService;
+import com.start.envy.service.DBNodeService;
 import com.start.envy.service.GetFlightsService;
 import com.start.envy.service.LocationService;
 import com.start.envy.service.NearestAirportService;
 import com.start.envy.service.RentalCarService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.start.envy.model.ResponseBody;
-import com.start.envy.model.ResponseVO;
 
 @RestController
 public class StarterController {
@@ -61,20 +53,18 @@ public class StarterController {
 
 	@Autowired
 	private RentalCarService rentalCarService;
-
-
-
+	
 	@Autowired
-	private AirportRepository AirportRepo ;
-
-	@Autowired
-	private SearchRepository searchRepository;
+	private DBNodeService dbNodeService;
+	
+	
 
 	@RequestMapping("/getAirport")
-	@CrossOrigin(origins = "http://149.165.157.247:3001")
+	@CrossOrigin(origins = "http://localhost:3001")
 	public ResponseVO getAirport(@RequestParam(value="origin", defaultValue="") String origin,@RequestParam(value="destination", defaultValue="World") String destination,
 			@RequestParam(value="date", defaultValue="") String date, @RequestParam(value="search_id", defaultValue="") String searchId) throws JsonParseException, JsonMappingException, IOException, ParseException {
 		ResponseVO responseVO = new ResponseVO();
+		ArrayList<SearchDetails> sdList = new ArrayList<>();
 		try {
 
 			
@@ -85,9 +75,18 @@ public class StarterController {
 				return responseVO;
 			}
 
-			Double[] start_location = locationService.findLocation(origin);
-			Double[] end_location =locationService.findLocation(destination);
+			Location locOrigin = locationService.findLocation(origin);
+			Location locDest =locationService.findLocation(destination);
 
+			Double[] start_location = new Double[2];
+			Double[] end_location = new Double[2];
+			
+			start_location[0] = locOrigin.getLatitude();
+			start_location[1] = locOrigin.getLatitude();
+			
+			end_location[0] = locDest.getLatitude();
+			end_location[1] = locDest.getLatitude();
+			
 			if(start_location == null || end_location == null) {
 				responseVO.setSuccess(false);
 				responseVO.setMessage("Invalid Location");
@@ -103,30 +102,20 @@ public class StarterController {
 			double end_lat = end_location[0];
 			double end_lng = end_location[1];
 
-			String source_airports = ClosestAirport.findClosestAirport(start_lat, start_lng);
-			String destination_airports = ClosestAirport.findClosestAirport(end_lat, end_lng);
+			List<AirportIndex> resultairport_org = ClosestAirport.findClosestAirport(locOrigin);
+			List<AirportIndex> resultairport_dest = ClosestAirport.findClosestAirport(locDest);
 			//System.out.println(source_airports);
-			String[] split_source_airports = source_airports.split(",");
-			String[] split_destination_airports = destination_airports.split(",");
 			//System.out.println(split_source_airports);
 			List<String> sources = new ArrayList<>();
 			List<String> destinations = new ArrayList<>();
-
-			List<AirportIndex> resultairport = AirportRepo.findByIata(split_source_airports[0]);
-			System.out.println("all---"+resultairport);
-			for(String source: split_source_airports) {
-				if(source!=null) {
-					if(resultairport.contains(source))
-						sources.add(source);
-
-				}
+			
+			for(AirportIndex source: resultairport_org) {
+				sources.add(source.getIata());
 			}
-			for(String dest : split_destination_airports) {
-				if(dest != null) {
-					if(resultairport.contains(dest))
-						destinations.add(dest);
-				}
+			for(AirportIndex dest: resultairport_dest) {
+				destinations.add(dest.getIata());
 			}
+			
 
 			System.out.println("Sources Found-- "+sources);
 			System.out.println("Destination Found-- "+destinations);
@@ -142,8 +131,10 @@ public class StarterController {
 			Map<String,String> carriercompany = new HashMap<>() ;
 			ResponseVO rvo = new ResponseVO();
 			System.out.println("Finding Flights....");
-			for(String from: sources) {
-				for(String to: destinations) {
+			for(AirportIndex airfrom: resultairport_org) {
+				for(AirportIndex airto: resultairport_dest) {
+					String from  = airfrom.getIata();
+					String to = airto.getIata();
 					
 					System.out.println("Source : " + from + " : " + "Destination" + to);
 					ResponseEntity<String> flights = null;
@@ -178,8 +169,8 @@ public class StarterController {
 						rb.setCompany(airlines[random.nextInt(airlines.length)]);
 						DecimalFormat df2 = new DecimalFormat(".##");
 						rb.setPrice(Double.valueOf(df2.format(Math.random() * 300 + 200)));
-						rb.setEndpoints(AirportRepo.findByAirport(from)+ "-"
-								+ ">" +AirportRepo.findByAirport	(to));
+						rb.setEndpoints(airfrom.getAirport()+ "-"
+								+ ">" +airto.getAirport());
 						rb.setTravelTimeStamp(new SimpleDateFormat("yyyy-MM-dd hh:mm").format(Calendar.getInstance().getTime()));
 						rb.setEndcodes(from + "->" + to);
 						QuotesArray.add(rb);
@@ -222,16 +213,21 @@ public class StarterController {
 					rvo.setEndLatitude(end_lat);
 					rvo.setStartLongitude(start_lng);
 					rvo.setEndLongitude(end_lng);
-					getCarRideRequests(rvo, origin, destination, searchId);
+					getCarRideRequests(rvo, origin, destination, searchId, sdList,airfrom, airto);
 
 				}
 			}
+			
+			
 			System.out.println("Flights found...");
+			System.out.println(sdList);
+			dbNodeService.SendDataToDb(sdList);
 			responseVO = new ResponseVO();
 			responseVO.setSearchId(searchId);
 			responseVO.setSuccess(true);
 			responseVO.setMessage("Success");
 			responseVO.setDate(date);
+			//responseVO.setSdList(sdList);
 
 			return responseVO;
 
@@ -248,7 +244,7 @@ public class StarterController {
 
 
 
-	public ResponseVO getCarRideRequests(ResponseVO res,String from, String to, String searchId) {
+	public ResponseVO getCarRideRequests(ResponseVO res,String from, String to, String searchId, ArrayList<SearchDetails> sdList, AirportIndex airFrom, AirportIndex airTo) {
 		System.out.println("Getting rental Prices....");
 
 		double start_lat = res.getStartlatitude();
@@ -260,10 +256,10 @@ public class StarterController {
 		String[] split_endpoints = flights.get(0).getEndpoints().split("->");
 		String[] split_endcodes = flights.get(0).getEndcodes().split("->");
 
-		double latendpoint1 = AirportRepo.findByLatitude(split_endcodes[0]);
-		double latendpoint2 = AirportRepo.findByLatitude(split_endcodes[1]);
-		double lngendpoint1 = AirportRepo.findByLongitude(split_endcodes[0]);
-		double lngendpoint2 = AirportRepo.findByLongitude(split_endcodes[1]);
+		double latendpoint1 = airFrom.getLatitude();
+		double latendpoint2 = airTo.getLatitude();
+		double lngendpoint1 = airFrom.getLongitude();
+		double lngendpoint2 = airTo.getLongitude();
 
 		SearchDetails sd  = rentalCarService.getCarRideRequests(start_lat, start_lng, latendpoint1, lngendpoint1);
 		SearchDetails sd2 = rentalCarService.getCarRideRequests(latendpoint2, lngendpoint2, end_lat, end_lng);
@@ -282,7 +278,8 @@ public class StarterController {
 			sd1.setSearchId(searchId);
 			sd1.setCarcarrier(sd.getCarcarrier());
 			sd1.setDate(sd.getDate());
-			searchRepository.save(sd1);
+			sdList.add(sd1);
+			
 		}
 		System.out.println("Added prices to DB!");
 

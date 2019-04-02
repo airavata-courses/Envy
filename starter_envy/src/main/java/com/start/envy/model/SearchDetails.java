@@ -1,17 +1,8 @@
 package com.start.envy.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-@Entity
-@Table(name = "search_details")
 public class SearchDetails implements Serializable{
-
-	
 	
 	public SearchDetails(String carcarrier, String flightcarrier, Double totalprice, String carsource,
 			String cardestination, String flightsource, String flightdestination, String date, String searchId) {
@@ -26,32 +17,26 @@ public class SearchDetails implements Serializable{
 		this.date = date;
 		this.searchId = searchId;
 	}
-	@Column(name="car_carrier")
+	@Override
+	public String toString() {
+		return "SearchDetails [carcarrier=" + carcarrier + ", flightcarrier=" + flightcarrier + ", totalprice="
+				+ totalprice + ", carsource=" + carsource + ", cardestination=" + cardestination + ", flightsource="
+				+ flightsource + ", flightdestination=" + flightdestination + ", date=" + date + ", searchId="
+				+ searchId + ", carSourcePrice=" + carSourcePrice + ", carDestinationPrice=" + carDestinationPrice
+				+ ", flightPrice=" + flightPrice + "]";
+	}
+	
 	private String carcarrier;
-	@Column(name="flight_carrier")
 	private String flightcarrier;
-	@Id
-	@Column(name="total_price")
 	private Double totalprice;
-	@Column(name="car_source")
 	private String carsource;
-	@Column(name="car_destination")
 	private String cardestination;
-	@Column(name="flight_source")
-	
 	private String flightsource;
-	@Column(name="flight_destination")
 	private String flightdestination;
-	@Column(name="date")
 	private String date;
-	@Column(name="search_Id")
 	private String searchId;
-	@Column(name="car_source_price")
-	
 	private Double carSourcePrice;
-	@Column(name="car_destination_price")
 	private Double carDestinationPrice;
-	@Column(name="flight_Price")
 	private Double flightPrice;
 	
 	public Double getCarSourcePrice() {
@@ -134,6 +119,7 @@ public class SearchDetails implements Serializable{
 	public void setSearchId(String searchId) {
 		this.searchId = searchId;
 	}
+	
 	
 	
 	
