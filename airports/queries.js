@@ -43,7 +43,80 @@ pool.query("SELECT * from airport", (error, results) => {
 });
 
 const addToDatabase = (request, response) => {
-  console.log("Database");
+  console.log(request.body);
+  const dataArray = request.body.sdList;
+  var flag = true;
+  for (i = 0; i < dataArray.length; i++) {
+    const {
+      carcarrier,
+      flightcarrier,
+      totalprice,
+      carsource,
+      cardestination,
+      flightsource,
+      flightdestination,
+      date,
+      searchId,
+      carSourcePrice,
+      carDestinationPrice,
+      flightPrice
+    } = dataArray[i];
+
+    const q =
+      "insert into search_details (car_carrier, flight_carrier, total_price, car_source, car_destination,flight_source, flight_destination, date, search_id, car_source_price, car_destination_price, flight_price)values('" +
+      carcarrier +
+      "','" +
+      flightcarrier +
+      "'," +
+      totalprice +
+      ",'" +
+      carsource +
+      "','" +
+      cardestination +
+      "','" +
+      flightsource +
+      "','" +
+      flightdestination +
+      "','" +
+      date +
+      "','" +
+      searchId +
+      "'," +
+      carSourcePrice +
+      "," +
+      carDestinationPrice +
+      "," +
+      flightPrice +
+      ")";
+    console.log(q);
+    pool.query(q, (error, results) => {
+      if (error) {
+        console.log("Issue with the database " + error);
+        flag = false;
+      }
+    });
+    if (!flag) {
+      response.status(400).json({
+        status: {
+          type: "failure",
+          message: error,
+          code: "400",
+          error: "true"
+        }
+      });
+      break;
+    }
+  }
+  if (flag) {
+    response.status(200).json({
+      status: {
+        type: "success",
+        message: "response recorded",
+        code: "200",
+        error: "false"
+      }
+    });
+  }
 };
 
 const findAirports = (request, response) => {

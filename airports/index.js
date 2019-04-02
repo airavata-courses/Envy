@@ -31,7 +31,7 @@ app.get("/", (request, response) => {
 });
 
 app.get("/findAirports", db.findAirports);
-app.get("/addToDatabse", db.addToDatabase);
+app.post("/addToDatabase", db.addToDatabase);
 app.get("/test", db.test);
 
 app.listen(process.env.PORT || port, () => {
