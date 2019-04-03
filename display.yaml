@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: display-server-deployment
+  labels:
+   app: display-server
+spec:
+  replicas: 3
+  selector:
+   matchLabels:
+    app: display-server
+  template:
+    metadata:
+      labels:
+        app: display-server
+    spec:
+      containers:
+      - name: display-server
+        image: varunmachingal92/python-node:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: display-server
+spec:
+  type: NodePort
+  selector:
+   app: display-server
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    nodePort: 30035
