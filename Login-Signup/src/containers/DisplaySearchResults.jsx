@@ -22,11 +22,10 @@ export default class DisplaySearchResults extends Component {
       key: "display",
       search_id: this.state.searchid
     };
-    const url = "http://149.165.170.100:3000/";
+    const url = "http://149.165.170.230:30035/getiternary/?search_id="+this.state.searchid;
     console.log("url", url);
     fetch(url, {
-      method: "POST",
-      body: JSON.stringify(data),
+      method: "GET",
       headers: {
         "Content-Type": "application/json"
       }

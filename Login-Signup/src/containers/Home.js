@@ -45,11 +45,10 @@ export default class Home extends Component {
         date: this.state.date,
         search_id: this.state.search_id
       };
-      const url = "http://149.165.170.100:3000/";
+      const url = "http://149.165.170.230:30025/getAirport?origin="+this.state.origin+"&destination="+this.state.destination+"&date="+this.state.date+"&search_id="+this.state.search_id;
       console.log("url", url);
       fetch(url, {
-        method: "POST",
-        body: JSON.stringify(data),
+        method: "GET",
         headers: {
           "Content-Type": "application/json"
         }

@@ -3,9 +3,9 @@ kind: Deployment
 metadata:
   name: uinode-deployment
   labels:
-   app: ui-node        
+   app: ui-node    
 spec:
-  replicas: 1
+  replicas: 3
   selector:
    matchLabels:
     app: ui-node        
@@ -13,13 +13,18 @@ spec:
     metadata:
       labels:
         app: ui-node
+        kube-monkey/enabled: enabled
+        kube-monkey/identifier: monkey-victim
+        kube-monkey/mtbf: '2'
+        kube-monkey/kill-mode: "fixed"
+        kube-monkey/kill-value: '1'
     spec:
       containers:
       - name: ui-node
-        image: varunmachingal92/ui-node:v8
+        image: varunmachingal92/ui-node:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 30002
+        - containerPort: 3001
 ---
 kind: Service
 apiVersion: v1
@@ -31,7 +36,7 @@ spec:
    app: ui-node
   ports:
   - protocol: TCP
-    port: 30002
-    targetPort: 30001
+    port: 3001
+    targetPort: 3001
     nodePort: 30002
 
