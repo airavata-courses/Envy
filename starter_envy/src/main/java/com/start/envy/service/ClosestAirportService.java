@@ -74,7 +74,7 @@ public class ClosestAirportService {
 	    	ai.setIata((String) a.get("iata"));
 	    	aiList.add(ai);
 	    }
-	    
+	    //test
 //	    for(int i=0;i<output.size();i++) {
 //	    	Map<?,?> temp = (Map<?,?>) output.get(i);
 //	    	String name = (String) temp.get("code");
