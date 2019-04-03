@@ -40,7 +40,7 @@ public class DBNodeService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println(jsonArray);
 		HttpEntity <String> httpEntity = new HttpEntity <String> (json.toString(), httpHeaders);
 	    
 	    String response = restTemplate.postForObject(url, httpEntity, String.class);
