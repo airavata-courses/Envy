@@ -1,36 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: node-server-deployment
+  name: airport-server-deployment
   labels:
-   app: node-server
+   app: airport-server
 spec:
   replicas: 5
   selector:
    matchLabels:
-    app: node-server
+    app: airport-server
   template:
     metadata:
       labels:
-        app: node-server
+        app: airport-server
     spec:
       containers:
-      - name: node-server
-        image: varunmachingal92/node-server:latest
+      - name: airport-server
+        image: varunmachingal92/airports-node:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 3000
+        - containerPort: 3005
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: node-server
+  name: airport-server
 spec:
   type: LoadBalancer
   selector:
-   app: node-server
+   app: airport-server
   ports:
   - protocol: TCP
-    port: 3000
-    targetPort: 3000
-    nodePort: 30015
+    port: 3005
+    targetPort: 3005
+    nodePort: 30045
+

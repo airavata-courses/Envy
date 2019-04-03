@@ -1,36 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: node-server-deployment
+  name: display-server-deployment
   labels:
-   app: node-server
+   app: display-server
 spec:
   replicas: 5
   selector:
    matchLabels:
-    app: node-server
+    app: display-server
   template:
     metadata:
       labels:
-        app: node-server
+        app: display-server
     spec:
       containers:
-      - name: node-server
-        image: varunmachingal92/node-server:latest
+      - name: display-server
+        image: varunmachingal92/python-node:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 3000
+        - containerPort: 8000
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: node-server
+  name: display-server
 spec:
   type: LoadBalancer
   selector:
-   app: node-server
+   app: display-server
   ports:
   - protocol: TCP
-    port: 3000
-    targetPort: 3000
-    nodePort: 30015
+    port: 8000
+    targetPort: 8000
+    nodePort: 30035
+

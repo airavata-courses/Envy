@@ -1,37 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: search-server-deployment
+  name: uinode-deployment
   labels:
-   app: search-server        
+   app: ui-node
 spec:
-  replicas: 1
+  replicas: 5
   selector:
    matchLabels:
-    app: search-server        
+    app: ui-node
   template:
     metadata:
       labels:
-        app: search-server
+        app: ui-node
+        kube-monkey/enabled: enabled
+        kube-monkey/identifier: monkey-victim
+        kube-monkey/mtbf: '2'
+        kube-monkey/kill-mode: "fixed"
+        kube-monkey/kill-value: '1'
     spec:
       containers:
-      - name: search-server
-        image: varunmachingal92/java-node:v1
+      - name: ui-node
+        image: varunmachingal92/ui-node:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 9200
+        - containerPort: 3001
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: search-server
+  name: ui-node
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
-   app: search-server
+   app: ui-node
   ports:
   - protocol: TCP
-    port: 9200
-    targetPort: 9200
-    nodePort: 30025
+    port: 3001
+    targetPort: 3001
+    nodePort: 30002
 
