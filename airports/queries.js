@@ -127,7 +127,11 @@ const findAirports = (request, response) => {
   console.log(latitude, longitude);
   var airports = [];
   var q = "SELECT * from airport where state = '" + state + "'";
-
+  var min = -9999;
+  var minLat = 0;
+  var minLong = 0;
+  var minAirport = 0;
+  var miniata = 0;
   pool.query(q, (error, results) => {
     if (error) {
       console.log("Issue with the database " + error);
@@ -158,16 +162,15 @@ const findAirports = (request, response) => {
             parseFloat(rows["latitude"]),
             parseFloat(rows["longitude"])
           );
-          if (temp < 200) {
-            airports.push({
-              latitude: rows["latitude"],
-              longitude: rows["longitude"],
-              airport: rows["airport"],
-              iata: rows["iata"]
-            });
+          if (min < temp) {
+            min = temp;
+            minLat = rows["latitude"];
+            minLong = rows["longitude"];
+            minAirport = rows["airport"];
+            miniata = rows["iata"];
           }
         }
-        if (airports.length == 0) {
+        if (min < 0) {
           response.status(404).json({
             status: {
               type: "failure",
@@ -177,6 +180,12 @@ const findAirports = (request, response) => {
             }
           });
         } else {
+          airports.push({
+            latitude: minLat,
+            longitude: minLong,
+            airport: minAirport,
+            iata: miniata
+          });
           console.log("Found airports ", airports);
           response.status(200).json({
             status: {
