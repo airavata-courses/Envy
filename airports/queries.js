@@ -162,7 +162,7 @@ const findAirports = (request, response) => {
             parseFloat(rows["latitude"]),
             parseFloat(rows["longitude"])
           );
-          if (min < temp) {
+          if (min < temp && temp < 100) {
             min = temp;
             minLat = rows["latitude"];
             minLong = rows["longitude"];
@@ -174,7 +174,7 @@ const findAirports = (request, response) => {
           response.status(404).json({
             status: {
               type: "failure",
-              data: "No airports found near the location",
+              data: "No airports found near in 100 miles of the location",
               code: "404",
               error: "true"
             }
