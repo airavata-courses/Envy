@@ -103,7 +103,7 @@ export default class Home extends Component {
                       onChange={this.handleChange}
                     />
                     <label className="deactive" htmlFor="destination">
-                      Destiation Address
+                      Destination Address 
                     </label>
                   </div>
                 </div>
@@ -135,7 +135,7 @@ export default class Home extends Component {
                     <div className="input-field col s6">
                       <input
                         id="date"
-                        type="text"
+                        type="date"
                         value={this.state.date}
                         onChange={this.handleChange}
                       />
