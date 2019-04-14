@@ -23,6 +23,7 @@ var verifyUser = (username, password, response) => {
         response.status(200).json({
           status: {
             type: "success",
+            firstName: results.rows[0]['firstName'],
             message: "Authenticated",
             code: "200",
             error: "false"
@@ -49,12 +50,12 @@ const authorizeUser = (request, response) => {
 };
 
 const addUser = (request, response) => {
-  const { username, password } = request.body;
+  const { username, password, firstName, lastName } = request.body;
   console.log("password" + password);
 
   pool.query(
-    "INSERT INTO user_travel (email, password, dob) VALUES ($1, $2, '01-01-1996')",
-    [username, password],
+    "INSERT INTO user_travel (email, password, firstName, lastName) VALUES ($1, $2, $3, $4)",
+    [username, password, firstName, lastName],
     (error, results) => {
       if (error) {
         response.status(400).json({
