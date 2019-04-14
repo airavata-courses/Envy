@@ -23,7 +23,7 @@ var verifyUser = (username, password, response) => {
         response.status(200).json({
           status: {
             type: "success",
-            firstName: results.rows[0]['firstName'],
+            firstName: results.rows[0]["firstname"],
             message: "Authenticated",
             code: "200",
             error: "false"
@@ -51,34 +51,42 @@ const authorizeUser = (request, response) => {
 
 const addUser = (request, response) => {
   const { username, password, firstName, lastName } = request.body;
-  console.log("password" + password);
+  console.log("password " + password, firstName, lastName);
 
-  pool.query(
-    "INSERT INTO user_travel (email, password, firstName, lastName) VALUES ($1, $2, $3, $4)",
-    [username, password, firstName, lastName],
-    (error, results) => {
-      if (error) {
-        response.status(400).json({
-          status: {
-            type: "failure",
-            message: error,
-            code: "400",
-            error: "true"
-          }
-        });
-      } else {
-        console.log(results);
-        response.status(200).json({
-          status: {
-            type: "success",
-            message: "User added to the database",
-            code: "200",
-            error: "false"
-          }
-        });
-      }
+  const q =
+    "insert into user_travel values(" +
+    "'" +
+    username +
+    "','" +
+    password +
+    "','" +
+    firstName +
+    "','" +
+    lastName +
+    "')";
+  console.log(q);
+  pool.query(q, (error, results) => {
+    if (error) {
+      response.status(400).json({
+        status: {
+          type: "failure",
+          message: error,
+          code: "400",
+          error: "true"
+        }
+      });
+    } else {
+      console.log(results);
+      response.status(200).json({
+        status: {
+          type: "success",
+          message: "User added to the database",
+          code: "200",
+          error: "false"
+        }
+      });
     }
-  );
+  });
 };
 
 const updateUser = (request, response) => {
