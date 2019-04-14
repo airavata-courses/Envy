@@ -113,7 +113,7 @@ def Itenary(request):
 	        print(temp)
 	        #search_id = '2'
 	        queryset = SearchDetails.objects.filter(search_id=str(temp)).all()
-	        queryset2 = SearchDetails.objects.raw("select * from search_details where search_id= %s and total_price <= all(select total_price from search_details where search_id= %s )",[str(temp),str(temp)])
+	        queryset2 = SearchDetails.objects.raw("select * from search_details where search_id= %s)",[str(temp)])
 	        #serializer_class = UserTravelSerializer
 	        # ret = []
 	        # for o in result:
