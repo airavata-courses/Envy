@@ -40,6 +40,8 @@ def pretty_json(partjson,totaljson):
 		tempresult['flight'] = temp['flight_carrier']
 		tempresult['flight_time']= temp['date']
 		tempresult['total_price'] = temp['total_price']
+		initial['origin']=temp['car_source']
+		initial['destination']=temp['car_destination']
 		remaining_results.append(tempresult)
 
 	for i in partjson:
