@@ -32,7 +32,7 @@ export default class Signup extends Component {
     event.preventDefault();
 
     this.setState({ isLoading: true });
-    const url = "http://149.165.170.230:30015/signup";
+    const url = "/foo/signup";
     let data = {
       key: "signup",
       username: this.state.email,
