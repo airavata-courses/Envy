@@ -45,7 +45,7 @@ export default class Home extends Component {
         date: this.state.date,
         search_id: this.state.search_id
       };
-      const url = "http://149.165.170.230:30025/getAirport?origin="+this.state.origin+"&destination="+this.state.destination+"&date="+this.state.date+"&search_id="+this.state.search_id;
+      const url = "/javabackend/getAirport?origin="+this.state.origin+"&destination="+this.state.destination+"&date="+this.state.date+"&search_id="+this.state.search_id;
       console.log("url", url);
       fetch(url, {
         method: "GET",
