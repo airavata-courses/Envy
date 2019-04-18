@@ -27,7 +27,7 @@ import com.start.envy.model.SearchDetails;
 public class DBNodeService {
 	
 	public void SendDataToDb(ArrayList<SearchDetails> sdList) {
-		String url = "/nodebackend/addToDatabase";
+		String url = "localhost/nodebackend/addToDatabase";
 		System.out.println(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders httpHeaders = new HttpHeaders();
