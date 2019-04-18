@@ -60,7 +60,7 @@ public class StarterController {
 	
 
 	@RequestMapping("/getAirport")
-	@CrossOrigin(origins = "localhost")
+	@CrossOrigin(origins = "/")
 	public ResponseVO getAirport(@RequestParam(value="origin", defaultValue="") String origin,@RequestParam(value="destination", defaultValue="World") String destination,
 			@RequestParam(value="date", defaultValue="") String date, @RequestParam(value="search_id", defaultValue="") String searchId) throws JsonParseException, JsonMappingException, IOException, ParseException {
 		ResponseVO responseVO = new ResponseVO();
