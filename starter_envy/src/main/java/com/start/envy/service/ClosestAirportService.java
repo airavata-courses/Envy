@@ -46,7 +46,7 @@ public class ClosestAirportService {
 	public List<AirportIndex> findClosestAirport(Location location) throws JsonParseException, JsonMappingException, IOException {
 		
 		System.out.println("Finding Closest Airports.....");
-		String url = "http://http://149.165.170.230:30045/findAirports?latitude="+location.getLatitude()+"&longitude="+location.getLongitutde()+"&state="+location.getState();
+		String url = "http://149.165.170.230:30045/findAirports?latitude="+location.getLatitude()+"&longitude="+location.getLongitutde()+"&state="+location.getState();
 		System.out.println(url);
 		RestTemplate restTemplate = new RestTemplate();
 	    HttpHeaders headers = new HttpHeaders();
