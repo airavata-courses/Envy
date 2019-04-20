@@ -22,7 +22,7 @@ import java.net.UnknownHostException;
 		public static void main(String[] args) throws UnknownHostException {
 			SpringApplication.run(StarterEnvyApplication.class, args);
 			InetAddress inetAddress = InetAddress.getLocalHost();
-			
+//test			
 			
 			
 //			ConsulClient client = new ConsulClient("http://149.165.169.49:8500");
