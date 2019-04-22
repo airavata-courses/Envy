@@ -94,8 +94,6 @@ public class StarterController {
 
 			}
 		
-			
-
 			double start_lat = start_location[0];
 			double start_lng = start_location[1];
 
@@ -164,6 +162,7 @@ public class StarterController {
 					}
 					System.out.println("Flights : " + results);
 					if(results.size() == 0) {
+						rb = new ResponseBody();
 						Random random = new Random();
 						String airlines[] = {"American Airlines", "Alaska Airlines", "SouthWest Airlines", "Delta Airlines", "Virgin Atlantic"};
 						rb.setCompany(airlines[random.nextInt(airlines.length)]);
@@ -186,18 +185,15 @@ public class StarterController {
 						}
 						
 						for(int i=0;i<CarriersList.size();i++) {
+							rb = new ResponseBody();
 							Map<?, ?> c =  (Map<?, ?>)CarriersList.get(i);
 							carriercompany.put(Integer.toString((Integer) c.get("CarrierId")),c.get("Name").toString());
-						}
-
-						for(int k=0;k<results.size();k++) {
-							Map<?,?> Quote=(Map<?,?>) results.get(k);
+							Map<?,?> Quote=(Map<?,?>) results.get(i);
 							rb.setPrice((Double) Quote.get("MinPrice"));
 							Map<?,?> OutboundLeg =(Map<?,?>)Quote.get("OutboundLeg");
 							String endpoints = Placejson.get(OutboundLeg.get("OriginId").toString()) + "->"+Placejson.get(OutboundLeg.get("DestinationId").toString());
 							rb.setEndpoints(endpoints);
-							List carrier=(List) OutboundLeg.get("CarrierIds");
-							rb.setCompany(carriercompany.get(Integer.toString((int) carrier.get(0))));
+							rb.setCompany(carriercompany.get(Integer.toString((Integer) c.get("CarrierId"))));
 							Date tempdate = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss").parse((String) Quote.get("QuoteDateTime"));
 							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 							String dateString = format.format( tempdate   );
