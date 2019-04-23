@@ -2,7 +2,8 @@
 import React, { Component } from "react";
 import "antd/dist/antd.css";
 import Cookies from "js-cookie";
-import { Button, Card, Form, Row, Col, Alert, Spinner } from "react-bootstrap";
+import Card from 'react-bootstrap/Card';
+import { Button, Form, Row, Col, Alert, Spinner } from "react-bootstrap";
 import moment from "moment";
 import "./home.css";
 import DisplayCard from "./displyCard.js";

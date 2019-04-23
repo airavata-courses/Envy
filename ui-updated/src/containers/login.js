@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Card, Form, Alert, Spinner } from "react-bootstrap";
+import Card from 'react-bootstrap/Card';
+import { Button, Form, Alert, Spinner } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 
 export default class Login extends Component {

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./signup.css";
 import Cookies from "js-cookie";
-import { Button, Card, Form, Alert, Spinner } from "react-bootstrap";
+import Card from 'react-bootstrap/Card';
+import { Button, Form, Alert, Spinner } from "react-bootstrap";
 
 export default class Signup extends Component {
   constructor(props) {

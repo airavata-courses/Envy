@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "antd/dist/antd.css";
-import { Card } from "react-bootstrap";
+import Card from 'react-bootstrap/Card';
 import "./displayCard.css";
 import { Timeline } from "antd";
 
