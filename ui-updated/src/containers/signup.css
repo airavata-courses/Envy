@@ -1,0 +1,31 @@
+.signup-form {
+  text-align: left;
+  width: 110%;
+}
+
+.container-signup {
+  margin-left: 15%;
+}
+
+.signup-form-group {
+  margin-left: 2%;
+  width: 37%;
+}
+.signup-form-group-email {
+  margin-left: 2%;
+  width: 37%;
+}
+
+.signup {
+  width: 50%;
+  margin-left: 26%;
+  height: 30%;
+}
+
+.form-control {
+  display: -webkit-inline-box;
+}
+
+.form-row {
+  margin-left: 8%;
+}

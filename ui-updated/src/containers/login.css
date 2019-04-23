@@ -1,0 +1,12 @@
+.container {
+  margin-left: 25%;
+  margin-top: 7%;
+  border-radius: 12.25px;
+  width: 50%;
+}
+.login-form {
+  text-align: left;
+}
+.btn-link {
+  padding: 0;
+}
