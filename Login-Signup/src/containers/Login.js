@@ -27,7 +27,7 @@ export default class Login extends Component {
   }
 
   handleSubmit = event => {
-    const url = "/backend/login";
+    const url = "http://149.165.171.47:30015/login";
     let data = {
       key: "login",
       username: this.state.email,
