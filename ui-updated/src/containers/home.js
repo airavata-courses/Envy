@@ -99,7 +99,7 @@ export default class Home extends Component {
     console.log("getSearchData");
     this.setState({ isLoading: true });
     const url =
-      " http://149.165.157.242:8000/getiternary/?search_id=" +
+      " http://149.165.171.47:30035/getiternary/?search_id=" +
       this.state.search_id;
     console.log("url", url);
     fetch(url, {
@@ -153,7 +153,7 @@ export default class Home extends Component {
       });
     } else {
       const url =
-        "http://localhost:9200/getAirport?origin=" +
+        "http://149.165.171.47:30025/getAirport?origin=" +
         this.state.origin +
         "&destination=" +
         this.state.destination +
