@@ -22,7 +22,7 @@ export default class DisplaySearchResults extends Component {
       key: "display",
       search_id: this.state.searchid
     };
-    const url = "/pybackend/getiternary/?search_id="+this.state.searchid;
+    const url = "http://149.165.171.47:30035/getiternary/?search_id="+this.state.searchid;
     console.log("url", url);
     fetch(url, {
       method: "GET",
