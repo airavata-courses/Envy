@@ -158,7 +158,12 @@ const findAirports = (request, response) => {
       } else {
         for (i = 0; i < results.rowCount; i++) {
           var rows = results.rows[i];
-
+          if (
+            rows["airport"].includes("Force") ||
+            rows["airport"].includes("Base")
+          ) {
+            continue;
+          }
           var temp = distance(
             latitude,
             longitude,
@@ -176,44 +181,34 @@ const findAirports = (request, response) => {
             min = temp;
           }
         }
-        if (min < 0) {
-          response.status(404).json({
-            status: {
-              type: "failure",
-              data: "No airports found near in 100 miles of the location",
-              code: "404",
-              error: "true"
-            }
-          });
-        } else {
-          sorted.sort();
-          for (i = 0; i < sorted.length; i++) {
-            if (i === 2) {
-              break;
-            }
-            airports.push({
-              latitude: dictionary[sorted[i]].minLat,
-              longitude: dictionary[sorted[i]].minLong,
-              airport: dictionary[sorted[i]].minAirport,
-              iata: dictionary[sorted[i]].miniata
-            });
+
+        sorted.sort();
+        for (i = 0; i < sorted.length; i++) {
+          if (i === 2) {
+            break;
           }
-          // airports.push({
-          //   latitude: minLat,
-          //   longitude: minLong,
-          //   airport: minAirport,
-          //   iata: miniata
-          // });
-          console.log("Found airports ", airports);
-          response.status(200).json({
-            status: {
-              type: "success",
-              data: airports,
-              code: "200",
-              error: "false"
-            }
+          airports.push({
+            latitude: dictionary[sorted[i]].minLat,
+            longitude: dictionary[sorted[i]].minLong,
+            airport: dictionary[sorted[i]].minAirport,
+            iata: dictionary[sorted[i]].miniata
           });
         }
+        // airports.push({
+        //   latitude: minLat,
+        //   longitude: minLong,
+        //   airport: minAirport,
+        //   iata: miniata
+        // });
+        console.log("Found airports ", airports);
+        response.status(200).json({
+          status: {
+            type: "success",
+            data: airports,
+            code: "200",
+            error: "false"
+          }
+        });
       }
     }
   });
