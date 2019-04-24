@@ -27,7 +27,9 @@ export default class Login extends Component {
   };
 
   responseGoogleSucc = response => {
-    console.log("succ " + response);
+    console.log("Logged in");
+    Cookies.set("username", response.profileObj.name);
+    window.location.href = "/home";
   };
 
   responseGoogle = response => {
