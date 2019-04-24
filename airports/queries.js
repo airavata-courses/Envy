@@ -188,7 +188,7 @@ const findAirports = (request, response) => {
         } else {
           sorted.sort();
           for (i = 0; i < sorted.length; i++) {
-            if (i === 3) {
+            if (i === 2) {
               break;
             }
             airports.push({
