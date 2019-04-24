@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: node-server
-        image: varunmachingal92/node-server:v7
+        image: varunmachingal92/node-server-green:v7
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
