@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import Card from 'react-bootstrap/Card';
+import Card from "react-bootstrap/Card";
 import { Button, Form, Alert, Spinner } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 
@@ -26,8 +26,12 @@ export default class Login extends Component {
     });
   };
 
+  responseGoogleSucc = response => {
+    console.log("succ " + response);
+  };
+
   responseGoogle = response => {
-    console.log(response);
+    console.log("fail " + response);
   };
 
   componentWillMount() {
@@ -129,7 +133,7 @@ export default class Login extends Component {
               <GoogleLogin
                 clientId="422192420540-ihkf9e02egv5tve8ce0v8nc5an8qlsjk.apps.googleusercontent.com"
                 buttonText="Login"
-                onSuccess={this.responseGoogle}
+                onSuccess={this.responseGoogleSucc}
                 onFailure={this.responseGoogle}
                 cookiePolicy={"single_host_origin"}
               />
