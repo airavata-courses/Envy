@@ -13,7 +13,8 @@ export default class Login extends Component {
       email: "",
       password: "",
       error: false,
-      isLoading: false
+      isLoading: false,
+      message: ""
     };
   }
   validateForm() {
@@ -33,7 +34,11 @@ export default class Login extends Component {
   };
 
   responseGoogle = response => {
-    console.log("fail " + response);
+    this.setState({
+      error: true,
+      isLoading: false,
+      message: "Could not authenticate using oAuth"
+    });
   };
 
   componentWillMount() {
@@ -69,7 +74,11 @@ export default class Login extends Component {
           window.location.href = "/home";
         } else {
           console.log("Invalid credentials");
-          this.setState({ error: true, isLoading: false });
+          this.setState({
+            error: true,
+            isLoading: false,
+            message: "Invalid Credentials"
+          });
           //window.location.href = "/register";
         }
       })
@@ -132,20 +141,30 @@ export default class Login extends Component {
                   Sign Up
                 </Link>
               </Button>
-              <GoogleLogin
-                clientId="422192420540-ihkf9e02egv5tve8ce0v8nc5an8qlsjk.apps.googleusercontent.com"
-                buttonText="Login"
-                onSuccess={this.responseGoogleSucc}
-                onFailure={this.responseGoogle}
-                cookiePolicy={"single_host_origin"}
-              />
             </Card.Text>
+            <hr
+              style={{
+                marginLeft: "15%",
+                marginRight: "15%",
+                marginTop: "5%",
+                marginBottom: "7%",
+                background: "#835b4b"
+              }}
+            />
+            <GoogleLogin
+              clientId="422192420540-ihkf9e02egv5tve8ce0v8nc5an8qlsjk.apps.googleusercontent.com"
+              buttonText="Login"
+              onSuccess={this.responseGoogleSucc}
+              onFailure={this.responseGoogle}
+              cookiePolicy={"single_host_origin"}
+              style={{ width: "45%" }}
+            />
           </Card.Body>
         </Card>
         <div style={{ marginLeft: "80%", marginTop: "2%" }}>
           <Alert show={error} variant="danger" style={{ display: "flex" }}>
             <Alert.Heading style={{ padding: "2%" }}>
-              Invalid Credentials
+              {this.state.message}
             </Alert.Heading>
             {"  "}
             <span style={{ marginLeft: "15%", marginTop: "1%" }}>
