@@ -158,12 +158,7 @@ const findAirports = (request, response) => {
       } else {
         for (i = 0; i < results.rowCount; i++) {
           var rows = results.rows[i];
-          if (
-            rows["airport"].includes("Force") ||
-            rows["airport"].includes("Base")
-          ) {
-            continue;
-          }
+
           var temp = distance(
             latitude,
             longitude,
@@ -177,12 +172,8 @@ const findAirports = (request, response) => {
             miniata: rows["iata"]
           };
           sorted[i] = temp;
-          if (min < temp && temp < 100) {
+          if (temp) {
             min = temp;
-            minLat = rows["latitude"];
-            minLong = rows["longitude"];
-            minAirport = rows["airport"];
-            miniata = rows["iata"];
           }
         }
         if (min < 0) {
