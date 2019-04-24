@@ -147,7 +147,7 @@ export default class Login extends Component {
                 marginLeft: "15%",
                 marginRight: "15%",
                 marginTop: "5%",
-                marginBottom: "7%",
+                marginBottom: "5%",
                 background: "#835b4b"
               }}
             />
