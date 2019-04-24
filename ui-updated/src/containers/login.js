@@ -146,7 +146,7 @@ export default class Login extends Component {
               style={{
                 marginLeft: "15%",
                 marginRight: "15%",
-                marginTop: "5%",
+                marginTop: "3%",
                 marginBottom: "5%",
                 background: "#835b4b"
               }}
@@ -157,7 +157,7 @@ export default class Login extends Component {
               onSuccess={this.responseGoogleSucc}
               onFailure={this.responseGoogle}
               cookiePolicy={"single_host_origin"}
-              style={{ width: "45%" }}
+              className="googleButton"
             />
           </Card.Body>
         </Card>
