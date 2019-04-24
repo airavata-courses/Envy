@@ -132,6 +132,8 @@ const findAirports = (request, response) => {
   var minLong = 0;
   var minAirport = 0;
   var miniata = 0;
+  var dictionary = {};
+  var sorted = [];
   pool.query(q, (error, results) => {
     if (error) {
       console.log("Issue with the database " + error);
@@ -156,12 +158,25 @@ const findAirports = (request, response) => {
       } else {
         for (i = 0; i < results.rowCount; i++) {
           var rows = results.rows[i];
+          if (
+            rows["airport"].includes("Force") ||
+            rows["airport"].includes("Base")
+          ) {
+            continue;
+          }
           var temp = distance(
             latitude,
             longitude,
             parseFloat(rows["latitude"]),
             parseFloat(rows["longitude"])
           );
+          dictionary[temp] = {
+            minLat: rows["latitude"],
+            minLong: rows["longitude"],
+            minAirport: rows["airport"],
+            miniata: rows["iata"]
+          };
+          sorted[i] = temp;
           if (min < temp && temp < 100) {
             min = temp;
             minLat = rows["latitude"];
@@ -180,12 +195,24 @@ const findAirports = (request, response) => {
             }
           });
         } else {
-          airports.push({
-            latitude: minLat,
-            longitude: minLong,
-            airport: minAirport,
-            iata: miniata
-          });
+          sorted.sort();
+          for (i = 0; i < sorted.length; i++) {
+            if (i === 3) {
+              break;
+            }
+            airports.push({
+              latitude: dictionary[sorted[i]].minLat,
+              longitude: dictionary[sorted[i]].minLong,
+              airport: dictionary[sorted[i]].minAirport,
+              iata: dictionary[sorted[i]].miniata
+            });
+          }
+          // airports.push({
+          //   latitude: minLat,
+          //   longitude: minLong,
+          //   airport: minAirport,
+          //   iata: miniata
+          // });
           console.log("Found airports ", airports);
           response.status(200).json({
             status: {
