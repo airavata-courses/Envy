@@ -6,8 +6,6 @@ const port = 3000;
 var http = require("http");
 
 var cors = require("cors");
-
-app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(
@@ -16,10 +14,13 @@ app.use(
   })
 );
 
-const corsOptions = {
-  origin: 'http://js-171-47.jetstream-cloud.org'
-}
-
+ const corOptions = {
+     'origin': '*',
+     'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+     'preflightContinue': true,
+     allowedHeaders:  'Content-Type,Authorization,X-Requested-With'
+  };
+app.use(cors(corOptions));
 
 app.get("/", (request, response) => {
   response.json({ info: "Authentication service is up and running" });
