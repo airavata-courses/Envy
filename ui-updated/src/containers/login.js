@@ -51,7 +51,7 @@ export default class Login extends Component {
 
   handleSubmit = event => {
     this.setState({ isLoading: true });
-    const url = "http://149.165.171.47/login";
+    const url = "http://149.165.171.47:30015/login";
     let data = {
       key: "login",
       username: this.state.email,
@@ -82,7 +82,14 @@ export default class Login extends Component {
           //window.location.href = "/register";
         }
       })
-      .catch(error => console.error("Error:", error));
+      .catch(error => {
+        console.error("Error:", error);
+        this.setState({
+          error: true,
+          message: error,
+          isLoading: false
+        });
+      });
     event.preventDefault();
   };
 

@@ -82,7 +82,14 @@ export default class Signup extends Component {
           });
         }
       })
-      .catch(error => console.error("Error:", error));
+      .catch(error => {
+        console.error("Error:", error);
+        this.setState({
+          error: true,
+          message: error,
+          isLoading: false
+        });
+      });
     event.preventDefault();
   };
 
