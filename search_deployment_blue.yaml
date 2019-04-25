@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: search-server
-        image: varunmachingal92/java-node-blue:latest
+        image: varunmachingal92/java-node-green:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 9200
