@@ -7,7 +7,13 @@ var http = require("http");
 
 var cors = require("cors");
 app.use(cors());
-app.options('*', cors());
+var allowCrossDomain = function(req, res, next) {
+res.header("Access-Control-Allow-Origin", "*"); // allow requests from any other server
+res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE'); // allow these verbs
+res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Cache-Control");
+ 
+app.use(allowCrossDomain); // plumbing it in as middleware
+
 
 app.use(express.json());
 app.use(bodyParser.json());
