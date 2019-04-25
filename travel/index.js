@@ -6,6 +6,9 @@ const port = 3000;
 var http = require("http");
 
 var cors = require("cors");
+app.use(cors());
+app.options('*', cors());
+
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(
@@ -14,13 +17,13 @@ app.use(
   })
 );
 
- const corOptions = {
-     'origin': '*',
-     'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-     'preflightContinue': true,
-     allowedHeaders:  'Content-Type,Authorization,X-Requested-With'
-  };
-app.use(cors(corOptions));
+//  const corOptions = {
+//      'origin': '*',
+//      'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//      'preflightContinue': true,
+//      allowedHeaders:  'Content-Type,Authorization,X-Requested-With'
+//   };
+// app.use(cors(corOptions));
 
 app.get("/", (request, response) => {
   response.json({ info: "Authentication service is up and running" });
