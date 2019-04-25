@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: search-server
+spec:
+  type: LoadBalancer
+  selector:
+   app: search-server
+   color: blue
+  ports:
+  - protocol: TCP
+    port: 9200
+    targetPort: 9200
+    nodePort: 30025
