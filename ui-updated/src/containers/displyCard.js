@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "antd/dist/antd.css";
-import Card from 'react-bootstrap/Card';
+import Card from "react-bootstrap/Card";
 import "./displayCard.css";
 import { Timeline } from "antd";
 
@@ -38,9 +38,11 @@ export default class resultCard extends Component {
             <Timeline.Item color="blue">
               {data.flight}{" "}
               {" " +
-                data.total_price -
-                data.cab_origin_fare -
-                data.cab_destination_fare}
+                Math.round(
+                  data.total_price -
+                    data.cab_origin_fare -
+                    data.cab_destination_fare
+                )}
               $
             </Timeline.Item>
           </Timeline.Item>
