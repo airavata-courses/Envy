@@ -51,7 +51,7 @@ export default class Login extends Component {
 
   handleSubmit = event => {
     this.setState({ isLoading: true });
-    const url = "http://149.165.170.230:30015/login";
+    const url = "http://149.165.171.47/login";
     let data = {
       key: "login",
       username: this.state.email,
