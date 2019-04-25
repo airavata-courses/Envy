@@ -37,7 +37,7 @@ export default class Login extends Component {
     this.setState({
       error: true,
       isLoading: false,
-      message: "Could not authenticate using oAuth"
+      message: response
     });
   };
 
@@ -91,7 +91,7 @@ export default class Login extends Component {
     const handleHide = () => this.setState({ error: false });
     return (
       <div>
-        <Card bg="light" className="container">
+        <Card bg="light" className="container shadow-lg">
           <Card.Body>
             <Card.Title>Log In </Card.Title>
             <Card.Subtitle className="mb-2 text-muted">

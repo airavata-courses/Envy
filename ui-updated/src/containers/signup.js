@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./signup.css";
 import Cookies from "js-cookie";
-import Card from 'react-bootstrap/Card';
+import Card from "react-bootstrap/Card";
 import { Button, Form, Alert, Spinner } from "react-bootstrap";
 
 export default class Signup extends Component {
@@ -87,7 +87,7 @@ export default class Signup extends Component {
   };
 
   handle = event => {
-    this.setState({ error: false });
+    this.setState({ error: false, message: "" });
   };
 
   render() {
