@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: display-server
-        image: varunmachingal92/python-node:latest 
+        image: varunmachingal92/python-node-blue:latest 
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
