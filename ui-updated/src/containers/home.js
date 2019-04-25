@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import "antd/dist/antd.css";
 import Cookies from "js-cookie";
-import Card from 'react-bootstrap/Card';
+import Card from "react-bootstrap/Card";
 import { Button, Form, Row, Col, Alert, Spinner } from "react-bootstrap";
 import moment from "moment";
 import "./home.css";
@@ -123,7 +123,10 @@ export default class Home extends Component {
           });
           this.forceUpdate();
         } else {
-          this.setState({ isLoading: false, error: true });
+          this.setState({
+            isLoading: false,
+            error: true
+          });
         }
       })
       .catch(error => console.error("Error:", error));
@@ -149,7 +152,7 @@ export default class Home extends Component {
     if (date.isBefore(moment())) {
       this.setState({
         error: true,
-        message: "Select another date",
+        message: "Please select a date in the future.",
         isLoading: false
       });
     } else {
@@ -185,11 +188,20 @@ export default class Home extends Component {
             this.getSearchData();
             console.log("working");
           } else {
-            this.setState({
-              error: true,
-              isLoading: false,
-              message: data.message
-            });
+            if (data.message === "") {
+              this.setState({
+                error: true,
+                isLoading: false,
+                message: "Invalid address. Please try again"
+              });
+            } else {
+              this.setState({
+                error: true,
+                isLoading: false,
+                message: data.message
+              });
+            }
+
             this.forceUpdate();
             //alert(data.message);
           }
