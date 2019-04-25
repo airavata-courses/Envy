@@ -16,14 +16,17 @@ app.use(
   })
 );
 
-app.options('*', cors());
+const corsOptions = {
+  origin: 'http://js-171-47.jetstream-cloud.org'
+}
+
 
 app.get("/", (request, response) => {
   response.json({ info: "Authentication service is up and running" });
 });
 
-app.post("/login", db.authorizeUser);
-app.post("/signup", db.addUser);
+app.post("/login", cors(corsOptions), db.authorizeUser);
+app.post("/signup",  cors(corsOptions), db.addUser);
 app.put("/users/:id", db.updateUser);
 app.post("/users/:id", db.deleteUser);
 
