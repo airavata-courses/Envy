@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airport-server-deployment-green
+  labels:
+   app: airport-server 
+   kube-monkey/enabled: "enabled"
+   kube-monkey/identifier: "airport-server"
+   kube-monkey/mtbf: '2'
+   kube-monkey/kill-mode: "fixed"
+   kube-monkey/kill-value: "1"   
+spec:
+  replicas: 1
+  selector:
+   matchLabels:
+    app: airport-server        
+  template:
+    metadata:
+      labels:
+        app: airport-server
+        kube-monkey/enabled: "enabled"
+        kube-monkey/identifier: "airport-server"
+        kube-monkey/mtbf: '2'
+        kube-monkey/kill-mode: "fixed"
+        kube-monkey/kill-value: "1"
+        color: green
+    spec:
+      containers:
+      - name: airport-server
+        image: varunmachingal92/airports-node:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3005

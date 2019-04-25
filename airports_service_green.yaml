@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: airport-server
+spec:
+  type: LoadBalancer
+  selector:
+   app: airport-server
+   color: green
+  ports:
+  - protocol: TCP
+    port: 3005
+    targetPort: 3005
+    nodePort: 30045
