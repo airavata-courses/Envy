@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-server-deployment-blue
+  labels:
+   app: node-server
+   kube-monkey/enabled: "enabled"
+   kube-monkey/identifier: "node-server"
+   kube-monkey/mtbf: '2'
+   kube-monkey/kill-mode: "fixed"
+   kube-monkey/kill-value: "1"
+spec:
+  replicas: 1
+  selector:
+   matchLabels:
+    app: node-server
+  template:
+    metadata:
+      labels:
+        app: node-server
+        kube-monkey/enabled: "enabled"
+        kube-monkey/identifier: "node-server"
+        kube-monkey/mtbf: '2'
+        kube-monkey/kill-mode: "fixed"
+        kube-monkey/kill-value: "1"
+        color: blue
+    spec:
+      containers:
+      - name: node-server
+        image: varunmachingal92/node-server-blue:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
