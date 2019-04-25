@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: display-server
+spec:
+  type: LoadBalancer
+  selector:
+   app: display-server
+   color: green
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    nodePort: 30035
+
