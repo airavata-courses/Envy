@@ -26,8 +26,8 @@ app.get("/", (request, response) => {
   response.json({ info: "Authentication service is up and running" });
 });
 
-app.post("/login", cors(corsOptions), db.authorizeUser);
-app.post("/signup",  cors(corsOptions), db.addUser);
+app.post("/login", db.authorizeUser);
+app.post("/signup", db.addUser);
 app.put("/users/:id", db.updateUser);
 app.post("/users/:id", db.deleteUser);
 
