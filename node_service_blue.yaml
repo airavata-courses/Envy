@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ui-node
+spec:
+  type: LoadBalancer
+  selector:
+   app: ui-node
+   color: blue
+  ports:
+  - protocol: TCP
+    port: 3001
+    targetPort: 3001
+    nodePort: 30002
