@@ -8,7 +8,7 @@ if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Pythonstarter.settings")
 
     from django.core.management import execute_from_command_line
-
+   #testing jenkins
    # c = consul.Consul()
    # f = requests.request('GET', 'http://myip.dnsomatic.com')
    # res = c.agent.service.register('pythonservice',address=f.content,port=8000)
