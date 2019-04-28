@@ -43,9 +43,7 @@ export default class Login extends Component {
 
   componentWillMount() {
     if (Cookies.get("username") !== undefined) {
-      Cookies.remove("username");
-      Cookies.remove("search_id");
-      Cookies.remove("user");
+     window.location.href = "/home";
     }
   }
 
